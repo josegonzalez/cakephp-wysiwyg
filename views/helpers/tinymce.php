@@ -1,17 +1,20 @@
 <?php
 /**
  * TinyMCEHelper is a helper for TinyMCE
- * This helper REQUIRES the TinyMCE.
+ * This helper REQUIRES the TinyMCE installation.
  * Based on David Boyer's helper at http://bakery.cakephp.org/articles/view/tinymce-helper-1
  * 
  * @author: Jose Diaz-Gonzalez
- * @version: 1.0
+ * @version: 1.1
+ * 
  */
 class TinyMceHelper extends AppHelper {
 	// Take advantage of other helpers
 	var $helpers = array('Javascript', 'Form');
 	// Check if the tiny_mce.js file has been added or not
 	var $_script = false;
+	// This keeps track of the times the helper was used
+	var $used = 0;
 
 	/**
 	 * Adds the tiny_mce.js file and constructs the options
@@ -24,7 +27,7 @@ class TinyMceHelper extends AppHelper {
 		if (!$this->_script) {
 			// We don't want to add this every time, it's only needed once
 			$this->_script = true;
-			$this->Javascript->link('/js/plugins/tiny_mce/tiny_mce.js', false);
+			$this->Javascript->link('/tinymce/js/tiny_mce/tiny_mce.js', false);
 		}
 		// Ties the options to the field
 		$tinyoptions['mode'] = 'textareas';
@@ -40,17 +43,14 @@ class TinyMceHelper extends AppHelper {
 	 * @param array $tinyoptions Array of TinyMCE attributes for this textarea
 	 * @return string An HTML textarea element with TinyMCE
 	 */
-	function textarea($fieldName, $selector, $options = array(), $tinyoptions = array()) {
+	function textarea($fieldName, $options = array(), $tinyoptions = array()) {
 		$options['type'] = 'textareas';
+		$selector = "mceTextArea{$this->used}";
 		$tinyoptions = array(
 			'editor_selector' => $selector,
 			'mode' => "specific_textareas"
 		);
-		if(isset($options['class'])){
-			$options['class'] = $options['class'].$selector;
-		} else {
-			$options['class'] = $selector;
-		}
+		$options['class'] = (isset($options['class'])) ? $options['class'].$selector : $options['class'] = $selector;
 		return $this->Form->textarea($fieldName, $options) . $this->_build($fieldName, $tinyoptions);
 	}
 
@@ -62,17 +62,14 @@ class TinyMceHelper extends AppHelper {
 	 * @param array $tinyoptions Array of TinyMCE attributes for this textarea
 	 * @return string An HTML textarea element with TinyMCE
 	 */
-	function input($fieldName, $selector, $options = array(), $tinyoptions = array()) {
+	function input($fieldName, $options = array(), $tinyoptions = array()) {
 		$options['type'] = 'textarea';
+		$selector = "mceInputArea{$this->used}";
 		$tinyoptions = array(
 			'editor_selector' => $selector,
 			'mode' => "specific_textareas"
 		);
-		if(isset($options['class'])){
-			$options['class'] = $options['class'].$selector;
-		} else {
-			$options['class'] = $selector;
-		}
+		$options['class'] = (isset($options['class'])) ? $options['class'].$selector : $options['class'] = $selector;
 		return $this->Form->input($fieldName, $options) . $this->_build($fieldName, $tinyoptions);
 	}
 }

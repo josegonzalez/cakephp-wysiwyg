@@ -1,0 +1,251 @@
+/* ezfilemanager v.0.8 012 19-09-2008  */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+color:#000;
+background:#F0F0EE;
+margin:10px 10px 0px 10px;
+padding:0px;
+}
+/* css for $Id: mctabs.js 758 2008-03-30 13:53:29Z spocke */
+fieldset {margin:0; padding:4px; border:1px solid #919B9C; font-family:Verdana, Arial; font-size:10px;}
+legend {color:#2B6FB6; font-weight:bold;}
+/* Tabs classes */
+.tabs {width:100%; height:18px; line-height:normal; background:url(../img/tabs.gif) repeat-x 0 -72px;}
+.tabs ul {margin:0; padding:0; list-style:none;}
+.tabs li {float:left; background:url(../img/tabs.gif) no-repeat 0 0; margin:0 2px 0 0; padding:0 0 0 10px; line-height:17px; height:18px; display:block;}
+.tabs li.current {background:url(../img/tabs.gif) no-repeat 0 -18px; margin-right:2px;}
+.tabs span {float:left; display:block; background:url(../img/tabs.gif) no-repeat right -36px; padding:0px 10px 0 0;}
+.tabs .current span {background:url(../img/tabs.gif) no-repeat right -54px;}
+.tabs a {text-decoration:none; font-family:Verdana, Arial; font-size:10px;}
+.tabs a:link, .tabs a:visited, .tabs a:hover {color:black;}
+
+/* Panels */
+.panel_wrapper div.panel {display:none;}
+
+.panel_wrapper {border:1px solid #919B9C; border-top:0px; padding:10px; padding-top:5px; clear:both; background:white;height:390px;}
+/* End css for $Id: mctabs.js 758 2008-03-30 13:53:29Z spocke */
+
+input 
+{
+background:#fff; 
+border:1px solid #ccc;
+font-size:11px;
+margin-top:4px;
+}
+.button
+{
+background:#fff; 
+border:1px solid #ccc;
+font-size:11px;
+cursor:pointer;
+
+}
+.buttonremove
+{
+background:#fff; 
+border:1px solid #ccc;
+font-size:11px;
+cursor:pointer;
+color:#FF0000;
+padding:0px 4px 0px 4px;
+visibility:hidden;
+
+}
+.emptyinput 
+{
+height:20px;
+overflow:hidden;
+background:#f0f0f0; 
+border:1px solid #c0c0c0;
+font-size:11px;
+}
+.panel_wrapper div.current {
+display:block;
+width:100%; 
+height:100%;
+overflow:hidden;
+}
+a:link, a:visited {color:black;text-decoration:none;}
+a:hover {color:#2B6FB6;}
+div.dirlist{
+float:left;
+overflow: auto; 
+width: 75%; 
+height: 340px;/*Change this if you change the height in TinyMC*/
+ 
+ }
+ div.uploadlist{
+
+overflow: auto; 
+width: 100%; 
+height: 340px;/*Change this if you change the height in TinyMC*/
+ 
+ }
+ div.preview{
+float:left;
+overflow: auto; 
+width: 24%; 
+height: 340px;/*Change this if you change the height in TinyMC*/
+ }
+ .thepreview {
+margin:0;
+padding:4px 0 0 0;
+ width: 98%;
+ border: 1px solid #999999;
+ padding:0px;
+ 
+ display:block;
+ }
+ input.insert_link 
+{
+background:#f0f0f0; 
+border:1px solid #c0c0c0;
+font-size:11px;
+visibility: hidden;
+width:98%;
+cursor:pointer;
+}
+a{
+text-decoration:none;
+}
+.topnav{
+background: #F0F0F0;
+height:18px;
+
+}
+.standalone{
+float:left;background:#F0F0F0;clear:both;
+}
+.refreshback{
+float:right;background:#F0F0F0;
+}
+table.browse {
+width: 96%;
+border-top: 1px solid #c0c0c0;
+border-right: 1px solid #c0c0c0;
+font-size:10px;
+
+}
+table.browse th, table.browse td {
+white-space:pre;
+text-align: left;
+padding-left: 2px;
+border-bottom: 1px solid #c0c0c0;
+border-left: 1px solid #c0c0c0;
+font-size:10px;
+}
+table.browse tr.r2 td {
+	background-color: #fff;
+}
+table.browse tr.r1 td {
+	background-color: #f0f0f0;
+}
+.delcheckbox {
+border: none;
+ 
+}
+form {
+margin: 0;
+padding: 0;
+}
+.fieldtext{
+	border: solid 1px #6e89dd; 
+	height: 16px; 
+	font-size: 11px; 
+    COLOR: #000000;
+	}
+.fieldtextfile{
+	border: solid 1px #6e89dd; 
+	height: 20px; 
+	font-size: 11px; 
+    COLOR: #000000;
+	width:250px;
+	}	
+img{
+border:0px;
+}
+a.navicons{
+margin-left:4px;
+}
+.delicon{
+border:0px;
+margin-left:4px;
+width:14px;
+}
+
+.icon {
+margin-left:4px;
+	 width:16px;
+	color: #000000;
+	height: 15px;
+	line-height: 15px;
+	vertical-align: middle;
+
+}
+.error{
+padding-left:0px 0px 0px 4px;
+margin-left:4px;
+color:#FF0000;
+}
+.thenotice{
+background:#f0f0f0;border:1px solid #c0c0c0;
+}
+.messagenotice{
+margin:0px;padding:4px;background:#BB0000;color: #fff;
+}
+
+
