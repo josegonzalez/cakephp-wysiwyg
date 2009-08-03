@@ -6,6 +6,8 @@ I was using David Boyer's excellent TinyMCE Helper (http://bakery.cakephp.org/ar
 - Add as a git submodule : in your plugin directory type `git submodule add git://github.com/josegonzalez/tinymce-helper.git tinymce`
 - Download an archive from github and extract it in `/plugins/tinymce`
 
+- Also download TinyMCE and install it in your js folder
+
 ## Usage
 1. Add the following to the controller where you'd like to use TinyMCE:
 	var $helper = array('Tinymce.Tinymce')
@@ -17,6 +19,6 @@ At this point, everything should theoretically work.
 
 ## TODO:
 1. Better code commenting
-2. Update the include TinyMCE distribution
+2. Figure out how to include the TinyMCE distribution
 3. Enable some file-uploading plugin for TinyMCE
 4. Refactor if possible

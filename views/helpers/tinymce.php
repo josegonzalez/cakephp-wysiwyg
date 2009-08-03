@@ -27,7 +27,7 @@ class TinyMceHelper extends AppHelper {
 		if (!$this->_script) {
 			// We don't want to add this every time, it's only needed once
 			$this->_script = true;
-			$this->Javascript->link('/tinymce/js/tiny_mce/tiny_mce.js', false);
+			$this->Javascript->link('tiny_mce/tiny_mce_src.js', false);
 		}
 		// Ties the options to the field
 		$tinyoptions['mode'] = 'textareas';
