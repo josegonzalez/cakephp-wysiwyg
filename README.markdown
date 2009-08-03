@@ -8,7 +8,7 @@ I was using David Boyer's excellent TinyMCE Helper (http://bakery.cakephp.org/ar
 
 ## Usage
 1. Add the following to the controller where you'd like to use TinyMCE:
-	var $actsAs = array('Tinymce.Tinymce')
+	var $helper = array('Tinymce.Tinymce')
 2. Replace your textarea inputs with either of the following:
 	$tinymce->input("Modelname.fieldname");
 	$tinymce->textarea("Modelname.fieldname");
