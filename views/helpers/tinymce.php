@@ -32,6 +32,20 @@ class TinyMceHelper extends AppHelper {
 		// Ties the options to the field
 		$tinyoptions['mode'] = 'textareas';
 		$tinyoptions['elements'] = $this->__name($fieldName);
+		$tinyoptions['skin'] = 'o2k7';
+		$tinyoptions['theme'] = 'advanced';
+		$tinyoptions['file_browser_callback'] = 'fileBrowserCallBack';
+		$tinyoptions['plugins'] = 'advhr,preview';
+		$tinyoptions['theme_advanced_buttons3_add'] = 'advhr,preview';
+		$tinyoptions['extended_valid_elements'] = 'hr[class|width|size|noshade]';
+		
+		echo $this->Javascript->codeBlock(
+			"function fileBrowserCallBack(field_name, url, type, win) {
+				browserField = field_name;
+				browserWin = win;
+				window.open('".Helper::url(array('controller' => 'images', 'action' => 'tinymce'))."', 'browserWindow', 'modal,width=600,height=400,scrollbars=yes');
+			}"
+		);
 		return $this->Javascript->codeBlock('tinyMCE.init(' . $this->Javascript->object($tinyoptions) . ');');
 	}
 
