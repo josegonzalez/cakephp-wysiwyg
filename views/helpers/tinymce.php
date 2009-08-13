@@ -9,20 +9,20 @@
  * 
  */
 class TinyMceHelper extends AppHelper {
-	// Take advantage of other helpers
+// Take advantage of other helpers
 	var $helpers = array('Javascript', 'Form');
-	// Check if the tiny_mce.js file has been added or not
+// Check if the tiny_mce.js file has been added or not
 	var $_script = false;
-	// This keeps track of the times the helper was used
-	var $used = 0;
+// This keeps track of the times the helper was used
+	var $_used = 0;
 
-	/**
-	 * Adds the tiny_mce.js file and constructs the options
-	 *
-	 * @param string $fieldName Name of a field, like this "Modelname.fieldname", "Modelname/fieldname" is deprecated
-	 * @param array $tinyoptions Array of TinyMCE attributes for this textarea
-	 * @return string JavaScript code to initialise the TinyMCE area
-	 */
+/**
+ * Adds the tiny_mce.js file and constructs the options
+ *
+ * @param string $fieldName Name of a field, like this "Modelname.fieldname", "Modelname/fieldname" is deprecated
+ * @param array $tinyoptions Array of TinyMCE attributes for this textarea
+ * @return string JavaScript code to initialise the TinyMCE area
+ */
 	function _build($fieldName, $tinyoptions = array()) {
 		if (!$this->_script) {
 			// We don't want to add this every time, it's only needed once
@@ -49,17 +49,17 @@ class TinyMceHelper extends AppHelper {
 		return $this->Javascript->codeBlock('tinyMCE.init(' . $this->Javascript->object($tinyoptions) . ');');
 	}
 
-	/**
-	 * Creates a TinyMCE textarea.
-	 *
-	 * @param string $fieldName Name of a field, like this "Modelname.fieldname", "Modelname/fieldname" is deprecated
-	 * @param array $options Array of HTML attributes.
-	 * @param array $tinyoptions Array of TinyMCE attributes for this textarea
-	 * @return string An HTML textarea element with TinyMCE
-	 */
+/**
+ * Creates a TinyMCE textarea.
+ *
+ * @param string $fieldName Name of a field, like this "Modelname.fieldname", "Modelname/fieldname" is deprecated
+ * @param array $options Array of HTML attributes.
+ * @param array $tinyoptions Array of TinyMCE attributes for this textarea
+ * @return string An HTML textarea element with TinyMCE
+ */
 	function textarea($fieldName, $options = array(), $tinyoptions = array()) {
 		$options['type'] = 'textareas';
-		$selector = "mceTextArea{$this->used}";
+		$selector = "mceTextArea{$this->_used}";
 		$tinyoptions = array(
 			'editor_selector' => $selector,
 			'mode' => "specific_textareas"
@@ -68,17 +68,17 @@ class TinyMceHelper extends AppHelper {
 		return $this->Form->textarea($fieldName, $options) . $this->_build($fieldName, $tinyoptions);
 	}
 
-	/**
-	 * Creates a TinyMCE textarea.
-	 *
-	 * @param string $fieldName Name of a field, like this "Modelname.fieldname", "Modelname/fieldname" is deprecated
-	 * @param array $options Array of HTML attributes.
-	 * @param array $tinyoptions Array of TinyMCE attributes for this textarea
-	 * @return string An HTML textarea element with TinyMCE
-	 */
+/**
+ * Creates a TinyMCE textarea.
+ *
+ * @param string $fieldName Name of a field, like this "Modelname.fieldname", "Modelname/fieldname" is deprecated
+ * @param array $options Array of HTML attributes.
+ * @param array $tinyoptions Array of TinyMCE attributes for this textarea
+ * @return string An HTML textarea element with TinyMCE
+ */
 	function input($fieldName, $options = array(), $tinyoptions = array()) {
 		$options['type'] = 'textarea';
-		$selector = "mceInputArea{$this->used}";
+		$selector = "mceInputArea{$this->_used}";
 		$tinyoptions = array(
 			'editor_selector' => $selector,
 			'mode' => "specific_textareas"
