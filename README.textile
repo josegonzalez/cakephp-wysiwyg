@@ -16,9 +16,10 @@ h3. Installation
 h3. Available Helpers
 
 * Wysiwyg (Wysiwyg.Wysiwyg)
-* TinyMCE (Wysiwyg.Tinymce)
 * FCKEditor (Wysiwyg.Fck)
 * Nicedit (Wysiwyg.Nicedit)
+* Markitup (Wysiwyg.Markitup)
+* TinyMCE (Wysiwyg.Tinymce)
 
 h3. Usage
 
