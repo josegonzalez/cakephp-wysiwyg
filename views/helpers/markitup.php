@@ -2,7 +2,7 @@
 /**
  * markItUp! Helpers
  * @author Jay Salvat
- * @version 1.0
+ * @version 1.1
  *
  * Download markItUp! at:
  * http://markitup.jaysalvat.com
