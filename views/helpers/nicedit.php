@@ -8,27 +8,37 @@
  * @link: 
  */
 class NiceditHelper extends AppHelper {
-	// Take advantage of other helpers
-	var $helpers = array('Javascript');
-
-	function input() {
-		return $this->_edit();
+// Take advantage of other helpers
+	var $helpers = array('Form', 'Javascript');
+// Check if the tiny_mce.js file has been added or not
+	var $_script = false;
+/**
+ * Adds the nicedit.js file and constructs the options
+ *
+ * @return void
+ */
+	function _build($field = null, $nicOptions = array()) {
+		if (!$this->_script) {
+			// We don't want to add this every time, it's only needed once
+			$this->_script = true;
+			$this->Javascript->link('nicedit/nicEdit.js', false);
+		}
+		return $this->Javascript->codeBlock(
+			"
+			var area1;
+			function makePanel() {
+				area1 = new nicEditor({fullPanel : true}).panelInstance('" . strtok($field, '.') . ucfirst(strtok('.')) . "',{hasPanel : true});
+			}
+			bkLib.onDomLoaded(function() { makePanel(); });",
+			array('safe' => false));
 	}
 
-	function textarea() {
-		return $this->_edit();
+	function input($field = null, $options = array(), $nicOptions = array()) {
+		return $this->Form->input($field, $options) . $this->_build($field, $nicOptions);
 	}
 
-	/**
-	 * Adds the nicedit.js file and constructs the options
-	 *
-	 * @return void
-	 */
-	function _edit() {
-		$value = $this->Javascript->link('nicedit/nicEdit.js');
-		$value .= $this->Javascript->codeBlock('bkLib.onDomLoaded(nicEditors.allTextAreas);', array('safe' => false));
-		return $value;
+	function textarea($field = null, $options = array(), $nicOptions) {
+		return $this->Form->textarea($field, $options) . $this->_build($field, $nicOptions);
 	}
-
 }
 ?>
