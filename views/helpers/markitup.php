@@ -51,7 +51,15 @@ class MarkitupHelper extends AppHelper {
 		$config = $this->_build($options);
 		$options = $config['settings'];
 		$id = '#'.parent::domId($field);
-		return $this->Javascript->codeBlock('jQuery.noConflict();$(document).ready(function() { jQuery("'.$id.'").markItUp('.$options['settings'].', { previewParserPath:"'.$options['parser'].'" } ); });');
+		return $this->Javascript->codeBlock(
+			'
+			$(document).ready(function() {
+				jQuery("'.$id.'").markItUp(
+					'.$options['settings'].', {
+						previewParserPath:"'.$options['parser'].'"
+					});
+				});
+			');
 	}
 
 /**
