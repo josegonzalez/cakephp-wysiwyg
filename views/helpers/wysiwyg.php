@@ -16,7 +16,7 @@ class WysiwygHelper extends AppHelper {
  *
  * @var array
  */
-	var $helpers = array('Wysiwyg.Fck', 'Wysiwyg.Nicedit', 'Wysiwyg.Tinymce');
+	var $helpers = array('Form', 'Wysiwyg.Fck', 'Wysiwyg.Nicedit', 'Wysiwyg.Markitup', 'Wysiwyg.Tinymce');
 
 /**
  * Default Helper to use
@@ -45,7 +45,7 @@ class WysiwygHelper extends AppHelper {
  * @author Jose Diaz-Gonzalez
  **/
 	function changeEditor($editor) {
-		$this->helper = $editor
+		$this->helper = $editor;
 	}
 
 /**
