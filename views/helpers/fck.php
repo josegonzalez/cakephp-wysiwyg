@@ -5,7 +5,7 @@
  *
  * @author: Jose Diaz-Gonzalez
  * @version: 1.0
- * @email: psykro AT gmail DOT com
+ * @email: support@savant.be
  * @site: http://josediazgonzalez.com
  */
 class FckHelper extends AppHelper {

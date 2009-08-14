@@ -6,7 +6,8 @@
  * 
  * @author: Jose Diaz-Gonzalez
  * @version: 1.1
- * 
+ * @email: support@savant.be
+ * @site: http://josediazgonzalez.com
  */
 class TinyMceHelper extends AppHelper {
 // Take advantage of other helpers

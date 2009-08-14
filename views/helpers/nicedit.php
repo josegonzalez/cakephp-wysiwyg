@@ -5,7 +5,8 @@
  *
  * @author: Jose Diaz-Gonzalez
  * @version: 1.0
- * @link: 
+ * @email: support@savant.be
+ * @site: http://josediazgonzalez.com
  */
 class NiceditHelper extends AppHelper {
 // Take advantage of other helpers
