@@ -72,7 +72,7 @@ class TinymceHelper extends AppHelper {
 			"function fileBrowserCallBack(field_name, url, type, win) {
 				browserField = field_name;
 				browserWin = win;
-				window.open('".Helper::url(array('controller' => 'images', 'action' => 'tinymce'))."', 'browserWindow', 'modal,width=600,height=400,scrollbars=yes');
+				window.open('".Helper::url(array('controller' => 'uploads', 'action' => 'tinymce'))."', 'browserWindow', 'modal,width=600,height=400,scrollbars=yes');
 			}"
 		);
 		return $this->Javascript->codeBlock('tinyMCE.init(' . $this->Javascript->object($options) . ');');
