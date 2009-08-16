@@ -63,7 +63,18 @@ class TinymceHelper extends AppHelper {
 		$options['elements'] = $this->__name($field);
 		$options['skin'] = 'default';
 		$options['theme'] = 'advanced';
-
+		$options['file_browser_callback'] = 'fileBrowserCallBack';
+		$options['plugins'] = 'advhr,preview';
+		$options['theme_advanced_buttons3_add'] = 'advhr,preview';
+		$options['extended_valid_elements'] = 'hr[class|width|size|noshade]';
+		
+		echo $this->Javascript->codeBlock(
+			"function fileBrowserCallBack(field_name, url, type, win) {
+				browserField = field_name;
+				browserWin = win;
+				window.open('".Helper::url(array('controller' => 'images', 'action' => 'tinymce'))."', 'browserWindow', 'modal,width=600,height=400,scrollbars=yes');
+			}"
+		);
 		return $this->Javascript->codeBlock('tinyMCE.init(' . $this->Javascript->object($options) . ');');
 	}
 
