@@ -51,7 +51,7 @@ class WysiwygHelper extends AppHelper {
 /**
 * Returns the appropriate input field element
 * 
-* @param string $field - used to build input name for views, 
+* @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $editorOptions Array of editor attributes for this input field
 * @return string
@@ -65,8 +65,7 @@ class WysiwygHelper extends AppHelper {
 
 /**
 * Returns the appropriate textarea element
-
-* @param string $field - used to build input name for views, 
+* @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $editorOptions Array of editor attributes for this textarea
 * @return string
@@ -76,6 +75,12 @@ class WysiwygHelper extends AppHelper {
 		$editorHelper = $this->helper;
 
 		return $this->$editorHelper->textarea($field, $options, $editorOptions);
+	}
+
+	function parse($content, $parser = '') {
+		$editorHelper = $this->helper;
+
+		return $this->$editorHelper->parse($content, $parser);
 	}
 }
 ?>

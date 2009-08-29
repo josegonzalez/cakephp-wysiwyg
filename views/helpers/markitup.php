@@ -15,14 +15,14 @@ class MarkitupHelper extends AppHelper {
  *
  * @var array
  */
-	var $helpers = array('Html', 'Form', 'Javascript');
+	var $helpers = array('Html', 'Form');
 
 /**
-* Creates an nicedit input field
+* Creates an markitup input field
 *
 * @param string $field - used to build input name for views, 
 * @param array $options Array of HTML attributes.
-* @param array $nicOptions Array of Nicedit attributes for this input field
+* @param array $nicOptions Array of Markitup attributes for this input field
 * @return string An HTML input field element with Nicedit
 */
 	function input($field = null, $options = array()) {
@@ -30,11 +30,11 @@ class MarkitupHelper extends AppHelper {
 	}
 
 /**
-* Creates an nicedit textarea
+* Creates an markitup textarea
 *
 * @param string $field - used to build input name for views, 
 * @param array $options Array of HTML attributes.
-* @param array $nicOptions Array of Nicedit attributes for this textarea
+* @param array $nicOptions Array of Markitup attributes for this textarea
 * @return string An HTML textarea element with Nicedit
 */
 	function textarea($field = null, $options = array()) {
@@ -51,7 +51,7 @@ class MarkitupHelper extends AppHelper {
 		$config = $this->_build($options);
 		$options = $config['settings'];
 		$id = '#'.parent::domId($field);
-		return $this->Javascript->codeBlock(
+		return $this->Html->scriptBlock(
 			'
 			$(document).ready(function() {
 				jQuery("'.$id.'").markItUp(
@@ -76,7 +76,7 @@ class MarkitupHelper extends AppHelper {
 
 		$config = $this->_build($settings);
 		$settings = $config['settings'];
-		$htmlAttributes = am($htmlAttributes, array('onclick' => 'jQuery("'.$id.'").markItUpRemove(); jQuery("'.$id.'").markItUp('.$settings['settings'].', { previewParserPath:"'.$settings['parser'].'" }); return false;'));
+		$htmlAttributes = array_merge($htmlAttributes, array('onclick' => 'jQuery("'.$id.'").markItUpRemove(); jQuery("'.$id.'").markItUp('.$settings['settings'].', { previewParserPath:"'.$settings['parser'].'" }); return false;'));
 		return $this->Html->link($title, "#", $htmlAttributes, $confirmMessage, false);
 	}
 
@@ -90,7 +90,7 @@ class MarkitupHelper extends AppHelper {
  */
 	function destroy($title, $fieldName = "", $htmlAttributes = array(), $confirmMessage = false) {
 		$id = ($fieldName{0} === '#') ? $fieldName : '#'.parent::domId($fieldName);
-		$htmlAttributes = am($htmlAttributes, array('onclick' => 'jQuery("'.$id.'").markItUpRemove(); return false;'));
+		$htmlAttributes = array_merge($htmlAttributes, array('onclick' => 'jQuery("'.$id.'").markItUpRemove(); return false;'));
 		return $this->Html->link($title, "#", $htmlAttributes, $confirmMessage, false);
 	}
 
@@ -116,7 +116,7 @@ class MarkitupHelper extends AppHelper {
 		}
 		$properties = substr($properties, 0, -1);
 
-		$htmlAttributes = am($htmlAttributes, array('onclick' => '$.markItUp( { '.$properties.' } ); return false;'));
+		$htmlAttributes = array_merge($htmlAttributes, array('onclick' => '$.markItUp( { '.$properties.' } ); return false;'));
 		return $this->Html->link($title, "#", $htmlAttributes, $confirmMessage, false);
 	}
 
@@ -131,20 +131,22 @@ class MarkitupHelper extends AppHelper {
 		// Drop your favorite parsers in the /vendor/ folder and edit lines below.
 		switch($parser) {
 			case 'bbcode':
-				// App::import('Vendor', 'bbcode', array('file' => 'myFavoriteBbcodeParser'));
-				// $parsed = myFavoriteBbcodeParser($content);
+				App::import('Vendor', 'Wysiwyg.bbcode/bbcode.php');
+				$parser = new Bbcode();
+				$content = $parser->BBCode2Html($content);
 			    break;
 			case 'textile':
-				// App::import('Vendor', 'textile', array('file' => 'myFavoriteTextileParser'));
-				// $parsed = myFavoriteTextileParser($content);
+				App::import('Vendor', 'Wysiwyg.textile/textile.php');
+				$parser = new Textile();
+				$content = $parser->TextileThis($content);
 			    break;
 			case 'markdown':
-				// App::import('Vendor', 'markdown', array('file' => 'myFavoriteMarkDownParser'));
-				// $parsed = myFavoriteMarkDownParser($content);
+				App::import('Vendor', 'Wysiwyg.markdown/markdown.php');
+				$content = Markdown($content);
 			    break;
 			default:
-				// App::import('Vendor', 'favorite', array('file' => 'myFavoriteFavoriteParser'));
-				// $parsed = myFavoriteFavoriteParser($content);
+				//App::import('Vendor', 'Wysiwyg.favorite', array('file' => 'myFavoriteFavoriteParser'));
+				//$parsed = myFavoriteFavoriteParser($content);
 		}
 		return $content;
 	}
@@ -154,7 +156,7 @@ class MarkitupHelper extends AppHelper {
  */
 	function beforeRender() {
 		//$this->Javascript->link('jquery/jquery.js', false);
-		$this->Javascript->link('markitup/jquery.markitup.js', false);
+		$this->Html->script('markitup/jquery.markitup.js', false);
 	}
 
 /**
@@ -165,12 +167,12 @@ class MarkitupHelper extends AppHelper {
 		$default = array(   'set' => 'bbcode',
 			'skin' => 'markitup',
 			'settings' => 'mySettings',
-			'parser' => '');
-		$settings = am($default, $settings);
+			'parser' => '/admin/posts/preview/bbcode');
+		$settings = array_merge($default, $settings);
 		if ($settings['parser']) {
 		    $settings['parser'] = $this->Html->url($settings['parser']);
 		}
-		$this->Javascript->link('markitup/sets/'.$settings['set'].'/set.js', false);
+		$this->Html->script('markitup/sets/'.$settings['set'].'/set.js', false);
 		$this->Html->css('/js/markitup/skins/'.$settings['skin'].'/style.css', null, null, false);
 		$this->Html->css('/js/markitup/sets/'.$settings['set'].'/style.css', null, null, false);
 
