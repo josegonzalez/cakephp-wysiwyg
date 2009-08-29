@@ -18,7 +18,7 @@ h3. Available Helpers
 * Wysiwyg (Wysiwyg.Wysiwyg)
 * FCKEditor (Wysiwyg.Fck)
 * Nicedit (Wysiwyg.Nicedit)
-* Markitup (Wysiwyg.Markitup)
+* Markitup (Wysiwyg.Markitup) (Defaults to Special CakePHP enhanced BBCode parser)
 * TinyMCE (Wysiwyg.Tinymce)
 
 h3. Usage
