@@ -31,10 +31,10 @@ class WysiwygHelper extends AppHelper {
 */
 	var $importedHelpers = array(
 		'Form' => false,
-		'Wysiwyg.Fck' => false,
-		'Wysiwyg.Nicedit' => false,
-		'Wysiwyg.Markitup' => false,
-		'Wysiwyg.Tinymce' => false
+		'Fck' => false,
+		'Nicedit' => false,
+		'Markitup' => false,
+		'Tinymce' => false
 	);
 
 /**
@@ -57,19 +57,19 @@ class WysiwygHelper extends AppHelper {
  **/
 	function changeEditor($editor) {
 		$this->helper = ucfirst($editor);
-		if ($this->helper !== 'Form') {
-			$this->helper = 'Wysiwyg.' . $this->helper;
+		if ($editor !== 'Form') {
+			$editor = 'Wysiwyg.' . $this->helper;
 		}
-		if (!$this->importedHelpers[$this->helper] and App::import('Helper', $this->helper)) {
+		if (!$this->importedHelpers[$this->helper] and App::import('Helper', $editor)) {
 			$this->importedHelpers[$this->helper] = true;
-			$this->helpers[] = $this->helper;
+			$this->helpers[] = $editor;
 		}
 	}
 
 /**
 * Returns the appropriate input field element
 * 
-* @param string $field - used to build input name for views, 
+* @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $editorOptions Array of editor attributes for this input field
 * @return string
@@ -84,7 +84,7 @@ class WysiwygHelper extends AppHelper {
 /**
 * Returns the appropriate textarea element
 * 
-* @param string $field - used to build input name for views, 
+* @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $editorOptions Array of editor attributes for this textarea
 * @return string
