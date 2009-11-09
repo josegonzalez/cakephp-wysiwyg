@@ -16,14 +16,26 @@ class WysiwygHelper extends AppHelper {
  *
  * @var array
  */
-	var $helpers = array('Form', 'Wysiwyg.Fck', 'Wysiwyg.Nicedit', 'Wysiwyg.Markitup', 'Wysiwyg.Tinymce');
+	var $helpers = array();
 
 /**
  * Default Helper to use
  *
  * @var string
  **/
-	var $helper = 'Tinymce';
+	var $helper = '';
+
+/**
+* Array of whether a certain helper has been imported yet
+* 
+*/
+	var $importedHelpers = array(
+		'Form' => false,
+		'Wysiwyg.Fck' => false,
+		'Wysiwyg.Nicedit' => false,
+		'Wysiwyg.Markitup' => false,
+		'Wysiwyg.Tinymce' => false
+	);
 
 /**
  * Sets the $this->helper to the helper configured in the session
@@ -32,9 +44,8 @@ class WysiwygHelper extends AppHelper {
  * @author Jose Diaz-Gonzalez
  **/
 	function __construct($options) {
-		if(!empty($options) && isset($options['editor'])) {
-			$this->helper = ucfirst($options['editor']);
-		}
+		$options = array_merge(array('editor' => 'tinymce'), $options);
+		$this->changeEditor($options['editor']);
 	}
 
 /**
@@ -45,7 +56,14 @@ class WysiwygHelper extends AppHelper {
  * @author Jose Diaz-Gonzalez
  **/
 	function changeEditor($editor) {
-		$this->helper = $editor;
+		$this->helper = ucfirst($editor);
+		if ($this->helper !== 'Form') {
+			$this->helper = 'Wysiwyg.' . $this->helper;
+		}
+		if (!$this->importedHelpers[$this->helper] and App::import('Helper', $this->helper)) {
+			$this->importedHelpers[$this->helper] = true;
+			$this->helpers[] = $this->helper;
+		}
 	}
 
 /**
@@ -65,7 +83,7 @@ class WysiwygHelper extends AppHelper {
 
 /**
 * Returns the appropriate textarea element
-
+* 
 * @param string $field - used to build input name for views, 
 * @param array $options Array of HTML attributes.
 * @param array $editorOptions Array of editor attributes for this textarea
