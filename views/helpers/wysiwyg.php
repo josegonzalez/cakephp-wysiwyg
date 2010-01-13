@@ -32,6 +32,7 @@ class WysiwygHelper extends AppHelper {
 	var $importedHelpers = array(
 		'Form' => false,
 		'Fck' => false,
+		'Jwysiwyg' => false,
 		'Nicedit' => false,
 		'Markitup' => false,
 		'Tinymce' => false
