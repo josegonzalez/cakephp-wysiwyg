@@ -39,6 +39,19 @@ class WysiwygHelper extends AppHelper {
 	);
 
 /**
+* Array of defaults configuration for editors, specified when
+* importing Wysiwyg in your controller. For example:
+*
+* var $helpers = array(
+*     'editor' =>  'Tinymce',
+*     'editorDefaults' => array(
+*         'theme_advanced_toolbar_align' => 'right',
+*         )
+*     );
+*/
+	var $_editorDefaults = array();
+
+/**
  * Sets the $this->helper to the helper configured in the session
  *
  * @return void
@@ -46,6 +59,9 @@ class WysiwygHelper extends AppHelper {
  **/
 	function __construct($options) {
 		$options = array_merge(array('editor' => 'tinymce'), $options);
+		if (isset($options['editorDefaults'])) {
+			$this->_editorDefaults = $options['editorDefaults'];
+		}
 		$this->changeEditor($options['editor']);
 	}
 
@@ -78,6 +94,7 @@ class WysiwygHelper extends AppHelper {
 */
 	function input($field, $options = array(), $editorOptions = array()) {
 		$editorHelper = $this->helper;
+		$editorOptions = Set::merge($this->_editorDefaults, $editorOptions);
 
 		return $this->$editorHelper->input($field, $options, $editorOptions);
 	}
@@ -93,6 +110,7 @@ class WysiwygHelper extends AppHelper {
 */
 	function textarea($field, $options = array(), $editorOptions = array()) {
 		$editorHelper = $this->helper;
+		$editorOptions = Set::merge($this->_editorDefaults, $editorOptions);
 
 		return $this->$editorHelper->textarea($field, $options, $editorOptions);
 	}
