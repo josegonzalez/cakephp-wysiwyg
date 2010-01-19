@@ -21,6 +21,13 @@ class JwysiwygHelper extends AppHelper {
 	var $helpers = array('Form', 'Javascript');
 
 /**
+ * Default options for the editor
+ *
+ * @var boolean
+ */
+        var $_defaults = null;
+
+/**
  * Whether helper has been initialized once or not
  *
  * @var boolean
@@ -55,10 +62,12 @@ class JwysiwygHelper extends AppHelper {
 			$this->Javascript->link('jwysiwyg/jquery.wysiwyg', false);
 		}
 
+		$options = Set::merge($this->_defaults, $options);
+		
 		return $this->Javascript->codeBlock(
 			"
 			jQuery(function () {
-				jQuery('#" .  $modelFieldPair['model'] . $modelFieldPair['field'] . "').wysiwyg();
+				jQuery('#" .  $modelFieldPair['model'] . $modelFieldPair['field'] . "').wysiwyg(" . $this->Javascript->object($options) . ");
 			});",
 			array('safe' => false));
 	}
