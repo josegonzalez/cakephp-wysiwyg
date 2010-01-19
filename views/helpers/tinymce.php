@@ -20,6 +20,24 @@ class TinymceHelper extends AppHelper {
 	var $helpers = array('Form', 'Javascript');
 
 /**
+ * Default options for the editor
+ *
+ * @var boolean
+ */
+	var $_defaults = array(
+		'mode' => 'textareas',
+		'theme' => 'advanced',
+		'skin' => 'default',
+		'theme_advanced_buttons1' => 'bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,undo,redo,link,unlink,image',
+		'theme_advanced_buttons2' => '',
+		'theme_advanced_buttons3' => '',
+		'theme_advanced_toolbar_location' => 'top',
+		'theme_advanced_toolbar_align' => 'left',
+		'theme_advanced_statusbar_location' => 'bottom',
+		'plugins' => 'inlinepopups',
+		);
+
+/**
  * Whether helper has been initialized once or not
  *
  * @var boolean
@@ -58,11 +76,9 @@ class TinymceHelper extends AppHelper {
 		}
 
 		// Ties the options to the field
-		$options['mode'] = 'textareas';
 		$options['editor_selector'] = $selector;
 		$options['elements'] = $this->_name($field);
-		$options['skin'] = 'default';
-		$options['theme'] = 'advanced';
+		$options = Set::merge($this->_defaults, $options);
 
 		return $this->Javascript->codeBlock('tinyMCE.init(' . $this->Javascript->object($options) . ');');
 	}
