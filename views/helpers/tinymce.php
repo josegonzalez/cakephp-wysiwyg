@@ -60,7 +60,7 @@ class TinymceHelper extends AppHelper {
 		// Ties the options to the field
 		$options['mode'] = 'textareas';
 		$options['editor_selector'] = $selector;
-		$options['elements'] = $this->__name($field);
+		$options['elements'] = $this->_name($field);
 		$options['skin'] = 'default';
 		$options['theme'] = 'advanced';
 
