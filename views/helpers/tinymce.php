@@ -97,7 +97,7 @@ class TinymceHelper extends AppHelper {
 		$selector = "data[{$this->__modelFieldPair['model']}][{$this->__modelFieldPair['field']}]";
 
 		if (isset($options['class'])) {
-			$options['class'] .= $selector;
+			$options['class'] .= ' ' . $selector;
 		} else {
 			$options['class'] = $selector;
 		}
@@ -114,12 +114,12 @@ class TinymceHelper extends AppHelper {
  * @return string An HTML textarea element with TinyMCE
  */
 	function textarea($field, $options = array(), $tinyoptions = array()) {
-		$options['type'] = 'textareas';
+		$options['type'] = 'textarea';
 		$this->__field($field);
 		$selector = "data[{$this->__modelFieldPair['model']}][{$this->__modelFieldPair['field']}]";
 
 		if (isset($options['class'])) {
-			$options['class'] .= $selector;
+			$options['class'] .= ' ' . $selector;
 		} else {
 			$options['class'] = $selector;
 		}
