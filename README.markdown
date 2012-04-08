@@ -26,16 +26,16 @@ _[GIT Submodule]_
 
 In your app directory type:
 
-  git submodule add git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Plugin/Wysiwyg
-  git submodule init
-  git submodule update
+    git submodule add git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Plugin/Wysiwyg
+    git submodule init
+    git submodule update
 
 
 _[GIT Clone]_
 
 In your plugin directory type
 
-  git clone git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Wysiwyg
+    git clone git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Wysiwyg
 
 ## Usage
 
@@ -51,18 +51,18 @@ In your plugin directory type
 
 Add the following to the controller where you'd like to use your preferred editor. You can omit the parameters if you like, the default editor is `tinymce`:
 
-        public $helper = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
+    public $helper = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
 
 Replace your textarea inputs with either of the following:
 
-        $this->Wysiwyg->input("ModelName.fieldName");
-        $this->Wysiwyg->textarea("ModelName.fieldName");
+    $this->Wysiwyg->input("ModelName.fieldName");
+    $this->Wysiwyg->textarea("ModelName.fieldName");
 
 Array Options for the FormHelper are contained in the second parameter, while the third parameter contains and array of options for the editor
 
 You can also change the editor within the view. Changes come into affect for the proceeding editor:
 
-        $this->Wysiwyg->changeEditor('nicedit');
+    $this->Wysiwyg->changeEditor('nicedit');
 
 At this point, everything should theoretically work.
 
@@ -70,16 +70,16 @@ At this point, everything should theoretically work.
 
 If hardcoding your editor, you can do the following in your Controller:
 
-        <?php
-        class AppController extends Controller {
+    <?php
+    class AppController extends Controller {
 
-          public $helpers = array('Wysiwyg.Nicedit');
-        }
+      public $helpers = array('Wysiwyg.Nicedit');
+    }
 
 Then usage in your views is as follows:
 
-        $this->Nicedit->input("ModelName.fieldName");
-        $this->Nicedit->textarea("ModelName.fieldName");
+    $this->Nicedit->input("ModelName.fieldName");
+    $this->Nicedit->textarea("ModelName.fieldName");
 
 ## TODO:
 
