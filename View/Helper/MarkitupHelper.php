@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * markItUp! Helpers
  * @author Jay Salvat
@@ -9,35 +9,31 @@
  * Download jQuery at:
  * http://jquery.com
  */
-class MarkitupHelper extends AppHelper {
-/**
- * Helper dependencies
- *
- * @var array
- */
-	var $helpers = array('Html', 'Form', 'Javascript');
+App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
+
+class MarkitupHelper extends WysiwygAppHelper {
 
 /**
 * Creates an nicedit input field
 *
-* @param string $field - used to build input name for views, 
+* @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $nicOptions Array of Nicedit attributes for this input field
 * @return string An HTML input field element with Nicedit
 */
-	function input($field = null, $options = array()) {
+	public function input($field = null, $options = array()) {
 		return $this->Form->input($field, $options) . $this->editor($field, $options);
 	}
 
 /**
 * Creates an nicedit textarea
 *
-* @param string $field - used to build input name for views, 
+* @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $nicOptions Array of Nicedit attributes for this textarea
 * @return string An HTML textarea element with Nicedit
 */
-	function textarea($field = null, $options = array()) {
+	public function textarea($field = null, $options = array()) {
 		return $this->Form->textarea($field, $options) . $this->editor($field, $options);
 	}
 
@@ -47,11 +43,11 @@ class MarkitupHelper extends AppHelper {
  * @param  array $settings
  * @return string  An <textarea /> element.
  */
-	function editor($field, $options = array()) {
+	public function editor($field, $options = array()) {
 		$config = $this->_build($options);
 		$options = $config['settings'];
 		$id = '#'.parent::domId($field);
-		return $this->Javascript->codeBlock(
+		return $this->Html->scriptBlock(
 			'
 			$(document).ready(function() {
 				jQuery("'.$id.'").markItUp(
@@ -71,7 +67,7 @@ class MarkitupHelper extends AppHelper {
  * @param  string $confirmMessage JavaScript confirmation message
  * @return string An <a /> element
  */
-	function create($title, $fieldName = "", $settings = array(), $htmlAttributes = array(), $confirmMessage = false) {
+	public function create($title, $fieldName = "", $settings = array(), $htmlAttributes = array(), $confirmMessage = false) {
 		$id = ($fieldName{0} === '#') ? $fieldName : '#'.parent::domId($fieldName);
 
 		$config = $this->_build($settings);
@@ -88,7 +84,7 @@ class MarkitupHelper extends AppHelper {
  * @param string  $confirmMessage JavaScript confirmation message
  * @return string An <a /> element
  */
-	function destroy($title, $fieldName = "", $htmlAttributes = array(), $confirmMessage = false) {
+	public function destroy($title, $fieldName = "", $htmlAttributes = array(), $confirmMessage = false) {
 		$id = ($fieldName{0} === '#') ? $fieldName : '#'.parent::domId($fieldName);
 		$htmlAttributes = am($htmlAttributes, array('onclick' => 'jQuery("'.$id.'").markItUpRemove(); return false;'));
 		return $this->Html->link($title, "#", $htmlAttributes, $confirmMessage, false);
@@ -103,7 +99,7 @@ class MarkitupHelper extends AppHelper {
  * @param string  $confirmMessage JavaScript confirmation message
  * @return string An <a /> element
  */
-	function insert($title, $fieldName = null, $content = array(), $htmlAttributes = array(), $confirmMessage = false) {
+	public function insert($title, $fieldName = null, $content = array(), $htmlAttributes = array(), $confirmMessage = false) {
 		if (isset($fieldName)) {
 			$content['target'] = ($fieldName{0} === '#') ? $fieldName : '#'.parent::domId($fieldName);
 		}
@@ -125,7 +121,7 @@ class MarkitupHelper extends AppHelper {
  * @param string  $content The content to be parsed
  * @return string Parsed content
  */
-	function parse($content, $parser = '') {
+	public function parse($content, $parser = '') {
 		// This Helper is designed to be used with several kinds of parser
 		// in a same project.
 		// Drop your favorite parsers in the /vendor/ folder and edit lines below.
@@ -133,15 +129,15 @@ class MarkitupHelper extends AppHelper {
 			case 'bbcode':
 				// App::import('Vendor', 'bbcode', array('file' => 'myFavoriteBbcodeParser'));
 				// $parsed = myFavoriteBbcodeParser($content);
-			    break;
+				break;
 			case 'textile':
 				// App::import('Vendor', 'textile', array('file' => 'myFavoriteTextileParser'));
 				// $parsed = myFavoriteTextileParser($content);
-			    break;
+				break;
 			case 'markdown':
 				// App::import('Vendor', 'markdown', array('file' => 'myFavoriteMarkDownParser'));
 				// $parsed = myFavoriteMarkDownParser($content);
-			    break;
+				break;
 			default:
 				// App::import('Vendor', 'favorite', array('file' => 'myFavoriteFavoriteParser'));
 				// $parsed = myFavoriteFavoriteParser($content);
@@ -152,29 +148,30 @@ class MarkitupHelper extends AppHelper {
 /**
  * Adds jQuery and markItUp! scripts to the page
  */
-	function beforeRender() {
-		//$this->Javascript->link('jquery/jquery.js', false);
-		$this->Javascript->link('markitup/jquery.markitup.js', false);
+	public function beforeRender() {
+		$this->Html->script('markitup/jquery.markitup.js', false);
 	}
 
 /**
  * Private function.
  * Builds the settings array and add includes
  */
-	function _build($settings) {
-		$default = array(   'set' => 'bbcode',
+	public function _build($settings) {
+		$settings = array_merge(array(
+			'set' => 'bbcode',
 			'skin' => 'markitup',
 			'settings' => 'mySettings',
-			'parser' => '');
-		$settings = am($default, $settings);
+			'parser' => ''
+		), $settings);
+
 		if ($settings['parser']) {
-		    $settings['parser'] = $this->Html->url($settings['parser']);
+			$settings['parser'] = $this->Html->url($settings['parser']);
 		}
-		$this->Javascript->link('markitup/sets/'.$settings['set'].'/set.js', false);
+		$this->Html->script('markitup/sets/'.$settings['set'].'/set.js', false);
 		$this->Html->css('/js/markitup/skins/'.$settings['skin'].'/style.css', null, null, false);
 		$this->Html->css('/js/markitup/sets/'.$settings['set'].'/style.css', null, null, false);
 
 		return array('settings' => $settings, 'default' => $default);
 	}
+
 }
-?>

@@ -10,26 +10,28 @@
  * @email:        support@savant.be
  * @site:         http://josediazgonzalez.com
  */
-class WysiwygHelper extends AppHelper {
+App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
+
+class WysiwygHelper extends WysiwygAppHelper {
 /**
  * Helper dependencies
  *
- * @var array
+ * @public array
  */
-	var $helpers = array();
+	public $helpers = array();
 
 /**
  * Default Helper to use
  *
- * @var string
+ * @public string
  **/
-	var $helper = '';
+	public $helper = '';
 
 /**
 * Array of whether a certain helper has been imported yet
-* 
+*
 */
-	var $importedHelpers = array(
+	public $importedHelpers = array(
 		'Form' => false,
 		'Fck' => false,
 		'Jwysiwyg' => false,
@@ -42,14 +44,14 @@ class WysiwygHelper extends AppHelper {
 * Array of defaults configuration for editors, specified when
 * importing Wysiwyg in your controller. For example:
 *
-* var $helpers = array(
+* public $helpers = array(
 *     'editor' =>  'Tinymce',
 *     'editorDefaults' => array(
 *         'theme_advanced_toolbar_align' => 'right',
 *         )
 *     );
 */
-	var $_editorDefaults = array();
+	public $_editorDefaults = array();
 
 /**
  * Sets the $this->helper to the helper configured in the session
@@ -57,7 +59,7 @@ class WysiwygHelper extends AppHelper {
  * @return void
  * @author Jose Diaz-Gonzalez
  **/
-	function __construct($options) {
+	public function __construct($options) {
 		$options = array_merge(array('editor' => 'tinymce'), $options);
 		if (isset($options['editorDefaults'])) {
 			$this->_editorDefaults = $options['editorDefaults'];
@@ -72,7 +74,7 @@ class WysiwygHelper extends AppHelper {
  * @return void
  * @author Jose Diaz-Gonzalez
  **/
-	function changeEditor($editor) {
+	public function changeEditor($editor) {
 		$this->helper = ucfirst($editor);
 		if ($editor !== 'Form') {
 			$editor = 'Wysiwyg.' . $this->helper;
@@ -85,14 +87,14 @@ class WysiwygHelper extends AppHelper {
 
 /**
 * Returns the appropriate input field element
-* 
+*
 * @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $editorOptions Array of editor attributes for this input field
 * @return string
 * @author Jose Diaz-Gonzalez
 */
-	function input($field, $options = array(), $editorOptions = array()) {
+	public function input($field, $options = array(), $editorOptions = array()) {
 		$editorHelper = $this->helper;
 		$editorOptions = Set::merge($this->_editorDefaults, $editorOptions);
 
@@ -101,18 +103,18 @@ class WysiwygHelper extends AppHelper {
 
 /**
 * Returns the appropriate textarea element
-* 
+*
 * @param string $field - used to build input name for views,
 * @param array $options Array of HTML attributes.
 * @param array $editorOptions Array of editor attributes for this textarea
 * @return string
 * @author Jose Diaz-Gonzalez
 */
-	function textarea($field, $options = array(), $editorOptions = array()) {
+	public function textarea($field, $options = array(), $editorOptions = array()) {
 		$editorHelper = $this->helper;
 		$editorOptions = Set::merge($this->_editorDefaults, $editorOptions);
 
 		return $this->$editorHelper->textarea($field, $options, $editorOptions);
 	}
+
 }
-?>
