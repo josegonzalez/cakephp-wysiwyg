@@ -11,9 +11,9 @@ The plugin also allows you to automatically change from one WYSIWYG Editor to an
 
 ## Installation
 
-For 1.3 support, please see the [1.3 branch](https://github.com/josegonzalez/cakephp-wysiwyg-helper/tree/1.3);
+For 1.3 support, please see the [1.3 branch](https://github.com/josegonzalez/cakephp-wysiwyg-helper/tree/1.3).
 
-Download the JS distribution of your editor of choice and install it in your js folder
+Download the JS distribution of your editor of choice and install it in your js folder.
 
 _[Manual]_
 
@@ -49,24 +49,29 @@ In your plugin directory type
 
 ### WyswigHelper
 
-* Add the following to the controller where you'd like to use your preferred editor:
-** `public $helper = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));`
-*** You can omit the parameters if you like, the default editor is `Tinymce`
+* Add the following to the controller where you'd like to use your preferred editor. You can omit the parameters if you like, the default editor is `tinymce`:
+
+    public $helper = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
+
 * Replace your textarea inputs with either of the following:
-** `$this->Wysiwyg->input("ModelName.fieldName");`
-** `$this->Wysiwyg->textarea("ModelName.fieldName");`
+
+	$this->Wysiwyg->input("ModelName.fieldName");
+	$this->Wysiwyg->textarea("ModelName.fieldName");
+
 * Array Options for the FormHelper are contained in the second parameter, while the third parameter contains and array of options for the editor
-* Change the editor within the view as follows:
-** `$this->Wysiwyg->changeEditor('nicedit');`
-** Changes come into affect for the proceeding editor
+* Change the editor within the view. Changes come into affect for the proceeding editor:
+
+	$this->Wysiwyg->changeEditor('nicedit');
+
 * At this point, everything should theoretically work.
 
 ### Other Helpers
 
 * If hardcoding your editor, you can do the following:
-	`public $helpers = array('Wysiwyg.Nicedit');`
-	`$this->Nicedit->input("ModelName.fieldName");`
-	`$this->Nicedit->textarea("ModelName.fieldName");`
+
+	public $helpers = array('Wysiwyg.Nicedit');
+	$this->Nicedit->input("ModelName.fieldName");
+	$this->Nicedit->textarea("ModelName.fieldName");
 
 ## TODO:
 
