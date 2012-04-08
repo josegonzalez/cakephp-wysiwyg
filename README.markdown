@@ -26,16 +26,16 @@ _[GIT Submodule]_
 
 In your app directory type:
 
-	git submodule add git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Plugin/Wysiwyg
-	git submodule init
-	git submodule update
+  git submodule add git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Plugin/Wysiwyg
+  git submodule init
+  git submodule update
 
 
 _[GIT Clone]_
 
 In your plugin directory type
 
-	git clone git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Wysiwyg
+  git clone git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Wysiwyg
 
 ## Usage
 
@@ -47,31 +47,39 @@ In your plugin directory type
 * Markitup (Wysiwyg.Markitup)
 * TinyMCE (Wysiwyg.Tinymce)
 
-### WyswigHelper
+### Using the Generic WyswigHelper
 
-* Add the following to the controller where you'd like to use your preferred editor. You can omit the parameters if you like, the default editor is `tinymce`:
+Add the following to the controller where you'd like to use your preferred editor. You can omit the parameters if you like, the default editor is `tinymce`:
 
-    public $helper = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
+        public $helper = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
 
-* Replace your textarea inputs with either of the following:
+Replace your textarea inputs with either of the following:
 
-	$this->Wysiwyg->input("ModelName.fieldName");
-	$this->Wysiwyg->textarea("ModelName.fieldName");
+        $this->Wysiwyg->input("ModelName.fieldName");
+        $this->Wysiwyg->textarea("ModelName.fieldName");
 
-* Array Options for the FormHelper are contained in the second parameter, while the third parameter contains and array of options for the editor
-* Change the editor within the view. Changes come into affect for the proceeding editor:
+Array Options for the FormHelper are contained in the second parameter, while the third parameter contains and array of options for the editor
 
-	$this->Wysiwyg->changeEditor('nicedit');
+You can also change the editor within the view. Changes come into affect for the proceeding editor:
 
-* At this point, everything should theoretically work.
+        $this->Wysiwyg->changeEditor('nicedit');
+
+At this point, everything should theoretically work.
 
 ### Other Helpers
 
-* If hardcoding your editor, you can do the following:
+If hardcoding your editor, you can do the following in your Controller:
 
-	public $helpers = array('Wysiwyg.Nicedit');
-	$this->Nicedit->input("ModelName.fieldName");
-	$this->Nicedit->textarea("ModelName.fieldName");
+        <?php
+        class AppController extends Controller {
+
+          public $helpers = array('Wysiwyg.Nicedit');
+        }
+
+Then usage in your views is as follows:
+
+        $this->Nicedit->input("ModelName.fieldName");
+        $this->Nicedit->textarea("ModelName.fieldName");
 
 ## TODO:
 
