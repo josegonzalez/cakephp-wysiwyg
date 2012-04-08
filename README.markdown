@@ -1,13 +1,16 @@
-# Wysiwyg Helpers Plugin
+# Wysiwyg Helpers Plugin 2.0
 
 Include Wysiwyg Editors quickly and easily
 
-## Description
+## Background
 
 I've been on a small refactoring spree as part of my work on Marcy Avenue. I realize, after years of working with Joomla and Wordpress, that people prefer different WYSIWYG editors. So to alleviate this, I am attempting to build a set of CakePHP helpers for each of the major WYSIWYG editors on the market, and as many small ones as possible.
 
 The plugin also allows you to automatically change from one WYSIWYG Editor to another when using the WysiwygHelper and configuring it in the controller. You may also change the Editor within the view.
 
+## Requirements
+
+* CakePHP 2.x
 
 ## Installation
 
