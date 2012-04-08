@@ -37,6 +37,14 @@ In your plugin directory type
 
     git clone git://github.com/josegonzalez/cakephp-wysiwyg-helper.git Wysiwyg
 
+### Enable plugin
+
+In 2.0 you need to enable the plugin your `app/Config/bootstrap.php` file:
+
+    CakePlugin::load('Wysiwyg');
+
+If you are already using `CakePlugin::loadAll();`, then this is not necessary.
+
 ## Usage
 
 ### Available Helpers
