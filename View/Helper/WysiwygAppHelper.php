@@ -30,6 +30,7 @@ App::uses('JavascriptHelper', 'View/Helper');
  */
 
 class WysiwygAppHelper extends AppHelper {
+
 /**
  * Helper dependencies
  *
@@ -59,26 +60,26 @@ class WysiwygAppHelper extends AppHelper {
 	protected $_modelFieldPair = array();
 
 /**
-* Creates an fckeditor input field
-*
-* @param string $field - used to build input name for views,
-* @param array $options Array of HTML attributes.
-* @param array $fckOptions Array of FckEditor attributes for this input field
-* @return string An HTML input element with FckEditor
-*/
-	public function input($fieldName = null, $options = array(), $helperOptions = array()){
+ * Creates an fckeditor input field
+ *
+ * @param string $field - used to build input name for views,
+ * @param array $options Array of HTML attributes.
+ * @param array $fckOptions Array of FckEditor attributes for this input field
+ * @return string An HTML input element with FckEditor
+ */
+	public function input($fieldName = null, $options = array(), $helperOptions = array()) {
 		return $this->Form->input($fieldName, $options) . $this->_build($fieldName, $helperOptions);
 	}
 
 /**
-* Creates an fckeditor textarea
-*
-* @param string $field - used to build input name for views,
-* @param array $options Array of HTML attributes.
-* @param array $fckOptions Array of FckEditor attributes for this textarea
-* @return string An HTML textarea element with FckEditor
-*/
-	public function textarea($fieldName = null, $options = array(), $helperOptions = array()){
+ * Creates an fckeditor textarea
+ *
+ * @param string $field - used to build input name for views,
+ * @param array $options Array of HTML attributes.
+ * @param array $fckOptions Array of FckEditor attributes for this textarea
+ * @return string An HTML textarea element with FckEditor
+ */
+	public function textarea($fieldName = null, $options = array(), $helperOptions = array()) {
 		return $this->Form->textarea($fieldName, $options) . $this->_build($fieldName, $helperOptions);
 	}
 

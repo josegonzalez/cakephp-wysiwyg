@@ -22,7 +22,7 @@ class NiceditHelper extends WysiwygAppHelper {
  * @param array $options Array of FckEditor attributes for this textarea
  * @return string JavaScript code to initialise the FckEditor area
  */
-	public function _build($field = null, $options = array()) {
+	protected function _build($field = null, $options = array()) {
 		if (!$this->_initialized) {
 			$this->_initialized = true;
 			$this->Html->script('nicedit/nicEdit.js', false);

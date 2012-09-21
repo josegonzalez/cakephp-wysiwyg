@@ -23,7 +23,7 @@ class TinymceHelper extends WysiwygAppHelper {
  * @param array $tinyoptions Array of TinyMCE attributes for this textarea
  * @return string JavaScript code to initialise the TinyMCE area
  */
-	public function _build($field, $options = array()) {
+	protected function _build($field, $options = array()) {
 		$field = $this->_field($field);
 
 		if (!$this->_initialized) {
