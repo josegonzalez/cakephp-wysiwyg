@@ -16,9 +16,6 @@
  */
 
 App::uses('AppHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('JavascriptHelper', 'View/Helper');
 
 /**
  * Wysiwyg App Helper class
@@ -27,6 +24,9 @@ App::uses('JavascriptHelper', 'View/Helper');
  *
  * @package       Wysiwyg.View.Helper
  * @link http://github.com/josegonzalez/cakephp-wysiwyg-plugin
+ * @property FormHelper $Form
+ * @property HtmlHelper $Html
+ * @property JsHelper $Js
  */
 
 class WysiwygAppHelper extends AppHelper {
@@ -36,7 +36,7 @@ class WysiwygAppHelper extends AppHelper {
  *
  * @var array
  */
-	public $helpers = array('Form', 'Html');
+	public $helpers = array('Form', 'Html', 'Js');
 
 /**
  * Whether helper has been initialized once or not
