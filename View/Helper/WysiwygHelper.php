@@ -59,7 +59,9 @@ class WysiwygHelper extends WysiwygAppHelper {
  * @return void
  * @author Jose Diaz-Gonzalez
  **/
-	public function __construct($options) {
+	public function __construct(View $View, $options) {
+		$this->_View = $View;
+		$this->request = $View->request;
 		$options = array_merge(array('editor' => 'tinymce'), $options);
 		if (isset($options['editorDefaults'])) {
 			$this->_editorDefaults = $options['editorDefaults'];
