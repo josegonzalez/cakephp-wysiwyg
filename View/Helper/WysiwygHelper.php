@@ -59,7 +59,9 @@ class WysiwygHelper extends WysiwygAppHelper {
  * @return void
  * @author Jose Diaz-Gonzalez
  **/
-	public function __construct($options) {
+	public function __construct(View $View, $options) {
+		$this->_View = $View;
+		$this->request = $View->request;
 		$options = array_merge(array('editor' => 'tinymce'), $options);
 		if (isset($options['editorDefaults'])) {
 			$this->_editorDefaults = $options['editorDefaults'];
@@ -76,12 +78,14 @@ class WysiwygHelper extends WysiwygAppHelper {
  **/
 	public function changeEditor($editor) {
 		$this->helper = ucfirst($editor);
+		$prefix = '';
 		if ($editor !== 'Form') {
-			$editor = 'Wysiwyg.' . $this->helper;
+			$prefix = 'Wysiwyg.';
 		}
-		if (!$this->importedHelpers[$this->helper] and App::import('Helper', $editor)) {
+		if (!$this->importedHelpers[$this->helper]) {
 			$this->importedHelpers[$this->helper] = true;
-			$this->helpers[] = $editor;
+			$this->helpers[] = $prefix . $this->helper;
+			$this->_helperMap = ObjectCollection::normalizeObjectArray($this->helpers);
 		}
 	}
 
