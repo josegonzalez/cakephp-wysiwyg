@@ -16,9 +16,6 @@
  */
 
 App::uses('AppHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('JavascriptHelper', 'View/Helper');
 
 /**
  * Wysiwyg App Helper class
@@ -27,15 +24,19 @@ App::uses('JavascriptHelper', 'View/Helper');
  *
  * @package       Wysiwyg.View.Helper
  * @link http://github.com/josegonzalez/cakephp-wysiwyg-plugin
+ * @property FormHelper $Form
+ * @property HtmlHelper $Html
+ * @property JsHelper $Js
  */
 
 class WysiwygAppHelper extends AppHelper {
+
 /**
  * Helper dependencies
  *
  * @var array
  */
-	public $helpers = array('Form', 'Html');
+	public $helpers = array('Form', 'Html', 'Js');
 
 /**
  * Whether helper has been initialized once or not
@@ -59,26 +60,26 @@ class WysiwygAppHelper extends AppHelper {
 	protected $_modelFieldPair = array();
 
 /**
-* Creates an fckeditor input field
-*
-* @param string $field - used to build input name for views,
-* @param array $options Array of HTML attributes.
-* @param array $fckOptions Array of FckEditor attributes for this input field
-* @return string An HTML input element with FckEditor
-*/
-	public function input($fieldName = null, $options = array(), $helperOptions = array()){
+ * Creates an fckeditor input field
+ *
+ * @param string $field - used to build input name for views,
+ * @param array $options Array of HTML attributes.
+ * @param array $fckOptions Array of FckEditor attributes for this input field
+ * @return string An HTML input element with FckEditor
+ */
+	public function input($fieldName = null, $options = array(), $helperOptions = array()) {
 		return $this->Form->input($fieldName, $options) . $this->_build($fieldName, $helperOptions);
 	}
 
 /**
-* Creates an fckeditor textarea
-*
-* @param string $field - used to build input name for views,
-* @param array $options Array of HTML attributes.
-* @param array $fckOptions Array of FckEditor attributes for this textarea
-* @return string An HTML textarea element with FckEditor
-*/
-	public function textarea($fieldName = null, $options = array(), $helperOptions = array()){
+ * Creates an fckeditor textarea
+ *
+ * @param string $field - used to build input name for views,
+ * @param array $options Array of HTML attributes.
+ * @param array $fckOptions Array of FckEditor attributes for this textarea
+ * @return string An HTML textarea element with FckEditor
+ */
+	public function textarea($fieldName = null, $options = array(), $helperOptions = array()) {
 		return $this->Form->textarea($fieldName, $options) . $this->_build($fieldName, $helperOptions);
 	}
 

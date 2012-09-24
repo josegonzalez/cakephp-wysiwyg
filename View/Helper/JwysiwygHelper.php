@@ -23,7 +23,7 @@ class JwysiwygHelper extends WysiwygAppHelper {
  * @param array $options Array of FckEditor attributes for this textarea
  * @return string JavaScript code to initialise the FckEditor area
  */
-	public function _build($field = null, array $options = array()) {
+	protected function _build($field = null, array $options = array()) {
 		$options = json_encode($options);
 
 		if (!$this->_initialized) {

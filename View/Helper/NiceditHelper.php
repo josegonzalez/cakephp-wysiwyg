@@ -19,25 +19,48 @@ class NiceditHelper extends WysiwygAppHelper {
  * Adds the nicedit.js file and constructs the options
  *
  * @param string $field Name of a field, like this "Modelname.fieldname"
- * @param array $options Array of FckEditor attributes for this textarea
- * @return string JavaScript code to initialise the FckEditor area
+ * @param array $options Array of NicEdit attributes for this textarea
+ * @return string JavaScript code to initialise the NicEdit area
+ * @link http://wiki.nicedit.com/w/page/515/Configuration%20Options NicEdit Configuration Options
  */
-	public function _build($field = null, $options = array()) {
+	protected function _build($field = null, $options = array()) {
+		$defaults = array(
+			'nicEditPath' => 'nicedit/nicEdit.js',
+			'bufferScript' => false,
+			'fullPanel' => true,
+			'iconsPath' => $this->url('/js/nicedit/nicEditorIcons.gif'),
+		);
+		$helperOptionKey = array(
+			'nicEditPath' => true,
+			'bufferScript' => true,
+		);
+
+		$options = array_merge($defaults, $options);
+
 		if (!$this->_initialized) {
 			$this->_initialized = true;
-			$this->Html->script('nicedit/nicEdit.js', false);
+			$this->Html->script($options['nicEditPath'], false);
 		}
 
-		$field = $this->_field($field);
-		return $this->Html->scriptBlock("public area1;
+		$initOptions = array_diff_key($options, $helperOptionKey);
+		$initOptions = json_encode($initOptions);
+		$domId = $this->domId($field);
+
+		$script = "var area1;
 			function makePanel() {
-				area1 = new nicEditor({fullPanel : true}).panelInstance(
-					'{$field['modelName']}{$field['fieldName']}',
+				area1 = new nicEditor({$initOptions}).panelInstance(
+					'{$domId}',
 					{hasPanel : true}
 				);
 			}
-			bkLib.onDomLoaded(function() { makePanel(); });
-		", array('safe' => false));
+			bkLib.onDomLoaded(function() { makePanel(); });";
+
+		if (isset($options['bufferScript'])) {
+			$this->Js->buffer($script);
+			return '';
+		}
+
+		return $this->Html->scriptBlock($script, array('safe' => true));
 	}
 
 }

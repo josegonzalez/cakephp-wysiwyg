@@ -21,7 +21,7 @@ class FckHelper extends WysiwygAppHelper {
  * @param array $options Array of FckEditor attributes for this textarea
  * @return string JavaScript code to initialise the FckEditor area
  */
-	public function _build($field, $options = array()) {
+	protected function _build($field, $options = array()) {
 		$options = array_merge(array(
 			'basepath' => $this->Html->base,
 			'fckPath' => '/js/fckeditor/',
@@ -29,7 +29,7 @@ class FckHelper extends WysiwygAppHelper {
 			'toolbarSet' => 'Default',
 			'skinPath' => 'editor/skins/',
 			'skin' => 'default'
-		), $options);
+			), $options);
 
 		if (!$this->_initialized) {
 			$this->_initialized = true;
