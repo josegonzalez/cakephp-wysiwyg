@@ -62,7 +62,7 @@ If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 
 Add the following to the controller where you'd like to use your preferred editor. You can omit the parameters if you like, the default editor is `tinymce`:
 
-    public $helper = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
+    public $helpers = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
 
 Replace your textarea inputs with either of the following:
 
