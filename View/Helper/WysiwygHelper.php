@@ -99,7 +99,7 @@ class WysiwygHelper extends WysiwygAppHelper {
  * @return string
  * @author Jose Diaz-Gonzalez
  */
-	public function input($field, $options = array(), $editorOptions = array()) {
+	public function input($field = null, $options = array(), $editorOptions = array()) {
 		$editorHelper = $this->helper;
 		$editorOptions = Set::merge($this->_editorDefaults, $editorOptions);
 
@@ -115,7 +115,7 @@ class WysiwygHelper extends WysiwygAppHelper {
  * @return string
  * @author Jose Diaz-Gonzalez
  */
-	public function textarea($field, $options = array(), $editorOptions = array()) {
+	public function textarea($field = null, $options = array(), $editorOptions = array()) {
 		$editorHelper = $this->helper;
 		$editorOptions = Set::merge($this->_editorDefaults, $editorOptions);
 
