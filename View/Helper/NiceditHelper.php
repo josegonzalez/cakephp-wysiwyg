@@ -54,7 +54,6 @@ CSS;
 	protected function _build($field = null, $options = array()) {
 		$options = array_merge(array(
 			'bufferScript' => false,
-			'fullPanel' => true,
 			'scriptPath' => 'nicedit/nicEdit.js',
 		), $options);
 
@@ -65,6 +64,10 @@ CSS;
 			'bufferScript' => true,
 			'scriptPath' => true,
 		)));
+
+		if (!isset($options['fullPanel'])) {
+			$options['fullPanel'] = true;
+		}
 
 		$script = <<<SCRIPT
 var area1_{$domId};
