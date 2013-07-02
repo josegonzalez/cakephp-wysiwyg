@@ -82,7 +82,6 @@ SCRIPT;
 		}
 
 		$this->_initialized = true;
-		$this->Html->script('jquery.js', false);
 		$this->Html->script($options['scriptPath'], false);
 		$this->Html->script($options['setPath'] . '/set.js', false);
 		$this->Html->css($options['skinPath'] . '/style.css', null, array('inline' => false));
