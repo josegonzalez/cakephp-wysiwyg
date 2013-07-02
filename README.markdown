@@ -94,11 +94,11 @@ Then usage in your views is as follows:
 
 ## TODO:
 
-* ~~~Better code commenting~~~
+* <del>Better code commenting</del>
 * Figure out how to include the JS distributions
 * Enable file-uploading using whatever is native to the editor
-* ~~~Refactor where possible~~~
-* ~~~Create a WysiwygHelper that will auto-create the type of helper you want based upon settings given to the view~~~
+* <del>Refactor where possible</del>
+* <del>Create a WysiwygHelper that will auto-create the type of helper you want based upon settings given to the view~~~
 * Tests
 
 ## License
