@@ -15,6 +15,34 @@ App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
 
 class NiceditHelper extends WysiwygAppHelper {
 
+	protected function _initialize($options) {
+		if ($this->_initialized) {
+			return;
+		}
+
+		$options = array_merge(array(
+			'scriptPath' => 'nicedit/nicEdit.js',
+		), $options);
+
+		if (!$options['scriptPath']) {
+			return;
+		}
+
+		$this->_initialized = true;
+		$this->Html->script($options['scriptPath'], false);
+		$css = <<<CSS
+form div.nicEdit-main,
+form div.nicEdit-panelContain,
+form div.nicEdit-panelContain div {
+	clear: none;
+	margin-bottom: 0;
+	padding: 0;
+}
+CSS;
+		$out = $this->Html->tag('style', $css);
+		$this->_View->append('css', $out);
+	}
+
 /**
  * Adds the nicedit.js file and constructs the options
  *
@@ -24,38 +52,32 @@ class NiceditHelper extends WysiwygAppHelper {
  * @link http://wiki.nicedit.com/w/page/515/Configuration%20Options NicEdit Configuration Options
  */
 	protected function _build($field = null, $options = array()) {
-		$defaults = array(
-			'nicEditPath' => 'nicedit/nicEdit.js',
+		$options = array_merge(array(
 			'bufferScript' => false,
 			'fullPanel' => true,
-			'iconsPath' => $this->url('/js/nicedit/nicEditorIcons.gif'),
-		);
-		$helperOptionKey = array(
-			'nicEditPath' => true,
-			'bufferScript' => true,
-		);
+			'scriptPath' => 'nicedit/nicEdit.js',
+		), $options);
 
-		$options = array_merge($defaults, $options);
+		$this->_initialize($options);
 
-		if (!$this->_initialized) {
-			$this->_initialized = true;
-			$this->Html->script($options['nicEditPath'], false);
-		}
-
-		$initOptions = array_diff_key($options, $helperOptionKey);
-		$initOptions = json_encode($initOptions);
 		$domId = $this->domId($field);
+		$initOptions = json_encode(array_diff_key($options, array(
+			'bufferScript' => true,
+			'scriptPath' => true,
+		)));
 
-		$script = "var area1;
-			function makePanel() {
-				area1 = new nicEditor({$initOptions}).panelInstance(
-					'{$domId}',
-					{hasPanel : true}
-				);
-			}
-			bkLib.onDomLoaded(function() { makePanel(); });";
+		$script = <<<SCRIPT
+var area1_{$domId};
+function makePanel_{$domId}() {
+	area1_{$domId} = new nicEditor({$initOptions}).panelInstance(
+		'{$domId}',
+		{hasPanel : true}
+	);
+}
+bkLib.onDomLoaded(function() { makePanel_{$domId}(); });
+SCRIPT;
 
-		if (isset($options['bufferScript'])) {
+		if (!empty($options['bufferScript'])) {
 			$this->Js->buffer($script);
 			return '';
 		}
