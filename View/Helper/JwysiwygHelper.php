@@ -16,6 +16,25 @@ App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
 
 class JwysiwygHelper extends WysiwygAppHelper {
 
+	protected function _initialize($options) {
+		if ($this->_initialized) {
+			return;
+		}
+
+		$options = array_merge(array(
+			'scriptPath' => 'jwysiwyg/jquery.wysiwyg.js',
+			'cssPath' => '/js/jwysiwyg/jquery.wysiwyg.css',
+		), $options);
+
+		if (!$options['scriptPath']) {
+			return;
+		}
+
+		$this->_initialized = true;
+		$this->Html->script($options['scriptPath'], false);
+		$this->Html->css($options['cssPath'], null, array('inline' => false));
+	}
+
 /**
  * Adds the jwysiwyg.js file and constructs the options
  *
@@ -23,18 +42,33 @@ class JwysiwygHelper extends WysiwygAppHelper {
  * @param array $options Array of FckEditor attributes for this textarea
  * @return string JavaScript code to initialise the FckEditor area
  */
-	protected function _build($field = null, array $options = array()) {
-		$options = json_encode($options);
+	protected function _build($field = null, $options = array()) {
+		$options = array_merge(array(
+			'bufferScript' => false,
+			'scriptPath' => 'jwysiwyg/jquery.wysiwyg.js',
+		), $options);
 
-		if (!$this->_initialized) {
-			$this->_initialized = true;
-			$this->Html->script('jwysiwyg/jquery.wysiwyg', false);
+		$this->_initialize($options);
+
+		$domId = $this->domId($field);
+		$initOptions = json_encode(array_diff_key($options, array(
+			'bufferScript' => true,
+			'scriptPath' => true,
+		)));
+
+		$script = <<<SCRIPT
+jQuery(function () {
+	jQuery('#{$domId}').wysiwyg({$initOptions});
+});
+SCRIPT;
+
+		if (!empty($options['bufferScript'])) {
+			$this->Js->buffer($script);
+			return '';
 		}
 
-		$field = $this->_field($field);
-		return $this->Html->scriptBlock("jQuery(function () {
-			jQuery('#{$field['modelName']}{$field['fieldName']}').wysiwyg({$options});
-		});", array('safe' => false, 'inline' => false));
+		return $this->Html->scriptBlock($script, array('safe' => true));
+
 	}
 
 }
