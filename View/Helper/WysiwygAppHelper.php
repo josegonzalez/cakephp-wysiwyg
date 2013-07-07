@@ -66,10 +66,8 @@ class WysiwygAppHelper extends AppHelper {
  **/
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
-		$settings = array_merge(array('editor' => 'tinymce'), (array)$settings);
-		if (isset($settings['settings'])) {
-			$this->_helperOptions = $settings['settings'];
-		}
+		$settings = array_merge(array('_editor' => 'tinymce'), (array)$settings);
+		$this->_helperOptions = $settings;
 	}
 
 /**
@@ -137,8 +135,10 @@ class WysiwygAppHelper extends AppHelper {
 	protected function _initializationOptions($options = array()) {
 		$defaults = array(
 			'_buffer' => true,
-			'_scripts' => true,
 			'_css' => true,
+			'_cssText' => true,
+			'_scripts' => true,
+			'_editor' => true,
 		);
 
 		return json_encode(array_diff_key(array_merge(

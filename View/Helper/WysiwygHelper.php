@@ -53,17 +53,43 @@ class WysiwygHelper extends WysiwygAppHelper {
  **/
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
-		$this->changeEditor($settings['editor']);
+		$this->changeEditor($this->_helperOptions['_editor']);
+	}
+
+/**
+ * Overrides helper settings
+ *
+ * @param array $helperOptions Each type of wysiwyg helper takes different options.
+ * @return void
+ **/
+	public function updateSettings($helperOptions = array()) {
+		$this->_helperOptions = $helperOptions;
+	}
+
+/**
+ * Retrieves current helper settings
+ *
+ * @return array current helper settings
+ **/
+	public function getSettings() {
+		return $this->_helperOptions;
 	}
 
 /**
  * Changes the editor on the fly
  *
  * @param string $editor String name of editor, excluding the word 'Helper'
+ * @param array $helperOptions Each type of wysiwyg helper takes different options.
  * @return void
+ * @throws MissingHelperException
  **/
-	public function changeEditor($editor) {
+	public function changeEditor($editor, $helperOptions = array()) {
 		$this->helper = ucfirst($editor);
+
+		if (!empty($helperOptions)) {
+			$this->updateSettings($helperOptions);
+		}
+
 		if (!isset($this->importedHelpers[$this->helper])) {
 			throw new MissingHelperException(sprintf("Missing Wysiwyg.%s Helper", $this->helper));
 		}
