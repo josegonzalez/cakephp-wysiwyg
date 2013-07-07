@@ -2,73 +2,66 @@
 /**
  * JwysiwygHelper is a helper for jWysiwyg
  * This helper REQUIRES the jwysiwyg + jquery installation files.
- * Get jwysiwyg from : http://code.google.com/p/jwysiwyg/
+ * Get jwysiwyg from: http://code.google.com/p/jwysiwyg/
  *
- * @package       cake
- * @subpackage    cake.app.plugins.wysiwyg.views.helpers
- * @author:       Jose Diaz-Gonzalez
- * @author:       Rachman Chavik
- * @version:      1.1
- * @email:        support@savant.be
- * @site:         http://josediazgonzalez.com
+ * Copyright 2009, Jose Diaz-Gonzalez (http://josediazgonzalez.com)
+ *
+ * Licensed under The MIT License
+ *
+ * @copyright     Copyright 2009, Jose Diaz-Gonzalez (http://josediazgonzalez.com)
+ * @link          http://github.com/josegonzalez/cakephp-wysiwyg-plugin
+ * @package       Wysiwyg
+ * @subpackage    Wysiwyg.View.Helper
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
 
 class JwysiwygHelper extends WysiwygAppHelper {
 
-	protected function _initialize($options) {
-		if ($this->_initialized) {
-			return;
-		}
-
-		$options = array_merge(array(
-			'scriptPath' => 'jwysiwyg/jquery.wysiwyg.js',
-			'cssPath' => '/js/jwysiwyg/jquery.wysiwyg.css',
-		), $options);
-
-		if (!$options['scriptPath']) {
-			return;
-		}
-
-		$this->_initialized = true;
-		$this->Html->script($options['scriptPath'], false);
-		$this->Html->css($options['cssPath'], null, array('inline' => false));
-	}
-
 /**
- * Adds the jwysiwyg.js file and constructs the options
+ * Initializes the Wysiwyg Helper JS/CSS and generates helper javascript
  *
- * @param string $field Name of a field, like this "Modelname.fieldname"
- * @param array $options Array of FckEditor attributes for this textarea
- * @return string JavaScript code to initialise the FckEditor area
+ * ### Options
+ *
+ * See each field type method for more information. Any options that are part of
+ * $attributes or $options for the different **type** methods can be included in `$options` for input().i
+ * Additionally, any unknown keys that are not in the list below, or part of the selected type's options
+ * will be treated as a regular html attribute for the generated input.
+ *
+ * - `_buffer` - A boolean for whether we should buffer input transformation js
+ * - `_scripts` - An array of scripts to buffer
+ * - `_css` - An array of css files to buffer
+ * - `_cssText` - A text string containing relevant css
+ *	See http://akzhan.github.io/jwysiwyg/ for more options.
+ *
+ * @param string $fieldName This should be "Modelname.fieldname"
+ * @param array $options Each type of wysiwyg helper takes different options.
+ * @return string JavaScript code to initialise the Wysiwyg area
  */
-	protected function _build($field = null, $options = array()) {
+	protected function _build($fieldName, $options = array()) {
 		$options = array_merge(array(
-			'bufferScript' => false,
-			'scriptPath' => 'jwysiwyg/jquery.wysiwyg.js',
+			'_buffer' => false,
+			'_scripts' => array(
+				'core' => 'jwysiwyg/jquery.wysiwyg.js',
+			),
+			'_css' => array(
+				'core' => '/js/jwysiwyg/jquery.wysiwyg.css',
+			),
+			'initialContent' => '',
 		), $options);
 
 		$this->_initialize($options);
+		$domId = $this->domId($fieldName);
+		$initOptions = $this->_initializationOptions($options);
 
-		$domId = $this->domId($field);
-		$initOptions = json_encode(array_diff_key($options, array(
-			'bufferScript' => true,
-			'scriptPath' => true,
-		)));
-
-		$script = <<<SCRIPT
-jQuery(function () {
-	jQuery('#{$domId}').wysiwyg({$initOptions});
-});
-SCRIPT;
-
-		if (!empty($options['bufferScript'])) {
+		$script = "jQuery(function () { jQuery('#{$domId}').wysiwyg({$initOptions}); });";
+		if (!empty($options['_buffer'])) {
 			$this->Js->buffer($script);
 			return '';
 		}
 
-		return $this->Html->scriptBlock($script, array('safe' => true));
-
+		return $this->Html->scriptBlock($script, array('safe' => false));
 	}
 
 }

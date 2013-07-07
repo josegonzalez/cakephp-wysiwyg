@@ -1,91 +1,71 @@
 <?php
 /**
- * markItUp! Helpers
- * @author Jay Salvat
- * @version 1.1
+ * MarkitupHelper is a helper for Markitup
+ * This helper REQUIRES the Markitup installation files.
  *
- * Download markItUp! at:
- * http://markitup.jaysalvat.com
- * Download jQuery at:
- * http://jquery.com
+ * Copyright 2009, Jose Diaz-Gonzalez (http://josediazgonzalez.com)
+ *
+ * Licensed under The MIT License
+ *
+ * @copyright     Copyright 2009, Jose Diaz-Gonzalez (http://josediazgonzalez.com)
+ * @link          http://github.com/josegonzalez/cakephp-wysiwyg-plugin
+ * @package       Wysiwyg
+ * @subpackage    Wysiwyg.View.Helper
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
 
 class MarkitupHelper extends WysiwygAppHelper {
 
 /**
- * Generates a form textarea element complete with label and wrapper div with markItUp! applied.
- * @param  string $fieldName This should be "Modelname.fieldname"
- * @param  array $settings
- * @return string  An <textarea /> element.
+ * Initializes the Wysiwyg Helper JS/CSS and generates helper javascript
+ *
+ * ### Options
+ *
+ * See each field type method for more information. Any options that are part of
+ * $attributes or $options for the different **type** methods can be included in `$options` for input().i
+ * Additionally, any unknown keys that are not in the list below, or part of the selected type's options
+ * will be treated as a regular html attribute for the generated input.
+ *
+ * - `_buffer` - A boolean for whether we should buffer input transformation js
+ * - `_scripts` - An array of scripts to buffer
+ * - `_css` - An array of css files to buffer
+ * - `_cssText` - A text string containing relevant css
+ *	See http://markitup.jaysalvat.com/home/ for more options.
+ *
+ * @param string $fieldName This should be "Modelname.fieldname"
+ * @param array $options Each type of wysiwyg helper takes different options.
+ * @return string JavaScript code to initialise the Wysiwyg area
  */
-	protected function _build($field = null, $options = array()) {
+	protected function _build($fieldName, $options = array()) {
 		$options = array_merge(array(
-			'bufferScript' => false,
-			'scriptPath' => 'markitup/jquery.markitup.js',
-			'settings' => false,
+			'_buffer' => false,
+			'_scripts' => array(
+				'core' => 'markitup/jquery.markitup.js',
+				'set' => 'markitup/sets/default/set.js'
+			),
+			'_css' => array(
+				'set' => '/js/markitup/sets/default/style.css',
+				'skin' => '/js/markitup/skins/markitup/style.css'
+			),
 		), $options);
 
 		$this->_initialize($options);
-		$domId = $this->domId($field);
+		$domId = $this->domId($fieldName);
+		$initOptions = $this->_initializationOptions($options);
 
-		$initOptions = array_diff_key($options, array(
-			'bufferScript' => true,
-			'scriptPath' => true,
-		));
-
-		if (!empty($initOptions)) {
-			if (isset($initOptions['settings'])) {
-				if ($initOptions['settings']) {
-					$initOptions = $initOptions['settings'];
-				} else {
-					$initOptions = 'mySettings';
-				}
-			} else {
-				$initOptions = json_encode($initOptions);
-			}
-		} else {
+		if (empty($initOptions) || $initOptions == '[]') {
 			$initOptions = 'mySettings';
 		}
 
-		$script = <<<SCRIPT
-$(document).ready(function() {
-	jQuery("#{$domId}").markItUp({$initOptions});
-});
-SCRIPT;
-
-
-		if (!empty($options['bufferScript'])) {
+		$script = "jQuery(function () { jQuery('#{$domId}').markItUp({$initOptions}); });";
+		if (!empty($options['_buffer'])) {
 			$this->Js->buffer($script);
 			return '';
 		}
 
-		return $this->Html->scriptBlock($script, array('safe' => true));
-	}
-
-/**
- * Adds jQuery and markItUp! scripts to the page
- */
-	protected function _initialize($options) {
-		if ($this->_initialized) {
-			return;
-		}
-
-		$options = array_merge(array(
-			'scriptPath' => 'markitup/jquery.markitup.js',
-			'setPath' => '/js/markitup/sets/default',
-			'skinPath' => '/js/markitup/skins/markitup',
-		), $options);
-
-		if (!$options['scriptPath']) {
-			return;
-		}
-
-		$this->_initialized = true;
-		$this->Html->script($options['scriptPath'], false);
-		$this->Html->script($options['setPath'] . '/set.js', false);
-		$this->Html->css($options['skinPath'] . '/style.css', null, array('inline' => false));
-		$this->Html->css($options['setPath'] . '/style.css', null, array('inline' => false));
+		return $this->Html->scriptBlock($script, array('safe' => false));
 	}
 
 }

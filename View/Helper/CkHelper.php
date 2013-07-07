@@ -1,7 +1,7 @@
 <?php
 /**
- * NicEditHelper is a helper for NicEdit
- * This helper REQUIRES the NicEdit installation files.
+ * FCKHelper is a helper for FCKEditor.
+ * This helper REQUIRES the FCKEditor installation files.
  *
  * Copyright 2009, Jose Diaz-Gonzalez (http://josediazgonzalez.com)
  *
@@ -16,7 +16,7 @@
 
 App::uses('WysiwygAppHelper', 'Wysiwyg.View/Helper');
 
-class NiceditHelper extends WysiwygAppHelper {
+class CkHelper extends WysiwygAppHelper {
 
 /**
  * Initializes the Wysiwyg Helper JS/CSS and generates helper javascript
@@ -32,40 +32,26 @@ class NiceditHelper extends WysiwygAppHelper {
  * - `_scripts` - An array of scripts to buffer
  * - `_css` - An array of css files to buffer
  * - `_cssText` - A text string containing relevant css
- *	See http://nicedit.com/ for more options.
+ *	See http://ckeditor.com/ for more options.
  *
  * @param string $fieldName This should be "Modelname.fieldname"
  * @param array $options Each type of wysiwyg helper takes different options.
  * @return string JavaScript code to initialise the Wysiwyg area
  */
 	protected function _build($fieldName, $options = array()) {
-				$cssText = <<<CSS
-form div.nicEdit-main,
-form div.nicEdit-panelContain,
-form div.nicEdit-panelContain div {
-	clear: none;
-	margin-bottom: 0;
-	padding: 0;
-}
-CSS;
-
 		$options = array_merge(array(
 			'_buffer' => false,
 			'_scripts' => array(
-				'core' => 'nicedit/nicEdit.js',
+				'core' => 'ck/ckeditor.js',
 			),
-			'_cssText' => $cssText,
-			'iconsPath' => '/js/nicedit/nicEditorIcons.gif'
 		), $options);
-
-		$options['iconsPath'] = $this->url($options['iconsPath']);
 
 		$this->_initialize($options);
 		$domId = $this->domId($fieldName);
 		$initOptions = $this->_initializationOptions($options);
 
-		$script = "bkLib.onDomLoaded(function() { new nicEditor({$initOptions}).panelInstance('{$domId}'); });";
-		if (!empty($options['_buffer'])) {
+		$script = "var editor = CKEDITOR.replace({$domId}, {$initOptions});";
+		if (!empty($options['buffer'])) {
 			$this->Js->buffer($script);
 			return '';
 		}
