@@ -1,0 +1,23 @@
+language: php
+
+php:
+  - 5.2
+  - 5.3
+  - 5.4
+  - 5.5
+
+matrix:
+  include:
+    - php: 5.4
+
+before_script:
+  - pear channel-discover pear.cakephp.org
+  - pear install --alldeps cakephp/CakePHP_CodeSniffer
+  - phpenv rehash
+  - set +H
+
+script:
+  - sh -c "phpcs -p --extensions=php --standard=CakePHP ./"
+
+notifications:
+  email: false
