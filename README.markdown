@@ -1,4 +1,4 @@
-# Wysiwyg Helpers Plugin 2.0
+# Wysiwyg Helpers Plugin 2.0 [![Build Status](https://travis-ci.org/josegonzalez/cakephp-wysiwyg-helper.png?branch=master)](https://travis-ci.org/josegonzalez/cakephp-wysiwyg-helper)
 
 Include Wysiwyg Editors quickly and easily
 
