@@ -52,8 +52,14 @@ If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 
 ### Available Helpers
 
-* Wysiwyg (Wysiwyg.Wysiwyg)
-* FCKEditor (Wysiwyg.Fck)
+> The default editor is Tinymce
+
+To use any of these helpers, you should create a folder in the `web/js` folder which is named the lowercase version of your editor of choice. This folder should contain the entire distribution of files necessary for your editor to be in use. For example, the `NiceditHelper` requires the `web/js/nicedit/nicEdit.js` and `web/js/nicedit/nicEditorIcons.gif` files.
+
+To configure where these files exist, please see the helper code.
+
+* Jwysiwyg (Wysiwyg.Jwysiwyg)
+* CKEditor (Wysiwyg.Ck)
 * Nicedit (Wysiwyg.Nicedit)
 * Markitup (Wysiwyg.Markitup)
 * TinyMCE (Wysiwyg.Tinymce)
@@ -62,18 +68,18 @@ If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 
 Add the following to the controller where you'd like to use your preferred editor. You can omit the parameters if you like, the default editor is `tinymce`:
 
-    public $helpers = array('Wysiwyg.Wysiwyg' => array('editor' => 'fck'));
+    public $helpers = array('Wysiwyg.Wysiwyg' => array('editor' => 'Ck'));
 
 Replace your textarea inputs with either of the following:
 
-    $this->Wysiwyg->input("ModelName.fieldName");
-    $this->Wysiwyg->textarea("ModelName.fieldName");
+    echo $this->Wysiwyg->input('ModelName.fieldName', $inputOptions, $helperOptions);
+    echo $this->Wysiwyg->textarea('ModelName.fieldName', $inputOptions, $helperOptions);
 
 Array Options for the FormHelper are contained in the second parameter, while the third parameter contains and array of options for the editor
 
 You can also change the editor within the view. Changes come into affect for the proceeding editor:
 
-    $this->Wysiwyg->changeEditor('nicedit');
+    $this->Wysiwyg->changeEditor('Nicedit', $helperOptions);
 
 At this point, everything should theoretically work.
 
@@ -85,25 +91,83 @@ If hardcoding your editor, you can do the following in your Controller:
     class AppController extends Controller {
 
       public $helpers = array('Wysiwyg.Nicedit');
+
     }
 
 Then usage in your views is as follows:
 
-    $this->Nicedit->input("ModelName.fieldName");
-    $this->Nicedit->textarea("ModelName.fieldName");
+    echo $this->Nicedit->input("ModelName.fieldName");
+
+    echo $this->Nicedit->textarea("ModelName.fieldName");
+
+### Settings
+
+Most editors take a javascript object as settings. The WysiwygHelper allows you to specify optional settings in three ways.
+
+#### Special settings
+
+The following are special settings that are used internally by the `Wysiwyg` plugin
+
+- `_buffer`: A boolean for whether we should buffer input transformation js
+- `_css`: An array of css files to buffer
+- `_cssText`: A text string containing relevant css
+- `_editor`: The editor class. Used only when you specify the `Wysiwyg.Wysiwyg` helper
+- `_scripts`: An array of scripts to buffer
+
+These will be ignored when passing settings onto the wysiwyg javascript you are configuring.
+
+#### Via Controller Setup
+
+This mode results in all non-special settings being set as defaults for every instantiation of the Wysiwyg editor areas.
+
+    <?php
+    class AppController extends Controller {
+        public $helpers = array(
+            'Wysiwyg.Wysiwyg' => array(
+                '_editor' => 'Tinymce',
+                'theme_advanced_toolbar_align' => 'right',
+            )
+        );
+    }
+
+#### Via ->changeEditor()
+
+The second argument on `Wysiwyg->changeEditor()` can also be used to completely override any already set defaults:
+
+    echo $this->Wysiwyg->changeEditor('Tinymce', $helperOptions);
+
+#### Via ->updateSettings()
+
+A call `->updateSettings()` can be used to completely override any already set defaults:
+
+    echo $this->Wysiwyg->updateSettings($helperOptions);
+
+    echo $this->Tinymce->updateSettings($helperOptions);
+
+You can also retrieve currently set editor settings by calling `->getSettings()`:
+
+    $settings = $this->Wysiwyg->getSettings();
+
+#### Via Helper Call
+
+Both `->input()` and `->textarea()` calls accept a third argument array, `$helperOptions`, which may be used to configure the helper. These are merged onto any defaults that have been specified:
+
+    echo $this->Wysiwyg->input('Post.body', $inputOptions, $helperOptions);
+
+    echo $this->Wysiwyg->textarea('Post.body', $inputOptions, $helperOptions);
 
 ## TODO:
 
 * <del>Better code commenting</del>
 * Figure out how to include the JS distributions
-* Enable file-uploading using whatever is native to the editor
+* <del>Enable file-uploading using whatever is native to the editor</del>
 * <del>Refactor where possible</del>
 * <del>Create a WysiwygHelper that will auto-create the type of helper you want based upon settings given to the view~~~
 * Tests
 
 ## License
 
-Copyright (c) 2009-2012 Jose Diaz-Gonzalez
+Copyright (c) 2009 Jose Diaz-Gonzalez
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
