@@ -1,12 +1,50 @@
 {
-  "name": "josegonzalez/cakephp-wysiwyg-helper",
-  "type": "cakephp-plugin",
+  "name": "josegonzalez/cakephp-wysiwyg",
+  "version": "2.0.1",
   "description": "cakephp helper plugin for various wysiwyg editors",
-  "homepage": "http://github.com/josegonzalez/cakephp-wysiwyg-helper",
+  "type": "cakephp-plugin",
+  "keywords": [
+    "cakephp",
+    "wysiwyg",
+    "helper"
+  ],
+  "homepage": "http://github.com/josegonzalez/cakephp-wysiwyg",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Jose Diaz-Gonzalez",
+      "email": "email@josediazgonzalez.com",
+      "homepage": "http://josediazgonzalez.com",
+      "role": "Maintainer"
+    },
+    {
+      "name":"Rachman Chavik",
+      "role":"Contributor",
+      "homepage":"https://github.com/rchavik"
+    },
+    {
+      "name":"Takashi Nojima",
+      "role":"Contributor",
+      "homepage":"https://github.com/nojimage"
+    },
+    {
+      "name":"Paul Josephson",
+      "role":"Contributor",
+      "homepage":"https://github.com/pjosephson"
+    },
+    {
+      "name":"plugs",
+      "role":"Contributor",
+      "homepage":"https://github.com/plugs"
+    }
+  ],
   "require": {
-    "php": ">=5.3.0",
     "composer/installers": "*"
+  },
+  "support": {
+    "email": "cakephp+upload@josediazgonzalez.com",
+    "issues": "https://github.com/josegonzalez/cakephp-wysiwyg/issues",
+    "source": "https://github.com/josegonzalez/cakephp-wysiwyg"
   },
   "extra": {
     "installer-name": "Wysiwyg"

@@ -1,4 +1,6 @@
-# Wysiwyg Helpers Plugin 2.0 [![Build Status](https://travis-ci.org/josegonzalez/cakephp-wysiwyg-helper.png?branch=master)](https://travis-ci.org/josegonzalez/cakephp-wysiwyg-helper)
+[![Build Status](https://travis-ci.org/josegonzalez/cakephp-wysiwyg.png?branch=master)](https://travis-ci.org/josegonzalez/cakephp-wysiwyg) [![Coverage Status](https://coveralls.io/repos/josegonzalez/cakephp-wysiwyg/badge.png?branch=master)](https://coveralls.io/r/josegonzalez/cakephp-wysiwyg?branch=master) [![Total Downloads](https://poser.pugx.org/josegonzalez/cakephp-wysiwyg/d/total.png)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg) [![Latest Stable Version](https://poser.pugx.org/josegonzalez/cakephp-wysiwyg/v/stable.png)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg)
+
+# Wysiwyg Helpers Plugin 2.0
 
 Include Wysiwyg Editors quickly and easily
 
@@ -14,13 +16,23 @@ The plugin also allows you to automatically change from one WYSIWYG Editor to an
 
 ## Installation
 
-For 1.3 support, please see the [1.3 branch](https://github.com/josegonzalez/cakephp-wysiwyg-helper/tree/1.3).
-
 Download the JS distribution of your editor of choice and install it in your js folder.
+
+_[Using [Composer](http://getcomposer.org/)]_
+
+Add the plugin to your project's `composer.json` - something like this:
+
+	{
+		"require": {
+			"josegonzalez/cakephp-wysiwyg": "dev-master"
+		}
+	}
+
+Because this plugin has the type `cakephp-plugin` set in it's own `composer.json`, composer knows to install it inside your `/Plugins` directory, rather than in the usual vendors file. It is recommended that you add `/Plugins/Upload` to your .gitignore file. (Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
 
 _[Manual]_
 
-* Download this: [https://github.com/josegonzalez/cakephp-wysiwyg-helper/zipball/master](https://github.com/josegonzalez/cakephp-wysiwyg-helper/zipball/master)
+* Download this: [https://github.com/josegonzalez/cakephp-wysiwyg/zipball/master](https://github.com/josegonzalez/cakephp-wysiwyg/zipball/master)
 * Unzip that download.
 * Copy the resulting folder to `app/Plugin`
 * Rename the folder you just copied to `Wysiwyg`
@@ -58,10 +70,10 @@ To use any of these helpers, you should create a folder in the `web/js` folder w
 
 To configure where these files exist, please see the helper code.
 
-* Jwysiwyg (Wysiwyg.Jwysiwyg)
 * CKEditor (Wysiwyg.Ck)
-* Nicedit (Wysiwyg.Nicedit)
+* Jwysiwyg (Wysiwyg.Jwysiwyg)
 * Markitup (Wysiwyg.Markitup)
+* Nicedit (Wysiwyg.Nicedit)
 * TinyMCE (Wysiwyg.Tinymce)
 
 ### Using the Generic WyswigHelper
@@ -166,6 +178,8 @@ Both `->input()` and `->textarea()` calls accept a third argument array, `$helpe
 * Tests
 
 ## License
+
+The MIT License (MIT)
 
 Copyright (c) 2009 Jose Diaz-Gonzalez
 

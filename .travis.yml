@@ -1,19 +1,39 @@
 language: php
 
 php:
-  - 5.2
   - 5.3
   - 5.4
   - 5.5
 
+env:
+  global:
+    - REPO_NAME="cakephp-wysiwyg"
+    - PLUGIN_NAME=Wysiwyg
+  matrix:
+    - DB=mysql CAKE_VERSION=master
+    - DB=mysql CAKE_VERSION=2.5
+
+matrix:
+  include:
+    - php: 5.4
+      env:
+        - DB=mysql CAKE_VERSION=master COVERALLS=1
+    - php: 5.4
+      env:
+        - DB=mysql CAKE_VERSION=master PHPCS=1
+
 before_script:
-  - pear channel-discover pear.cakephp.org
-  - pear install --alldeps cakephp/CakePHP_CodeSniffer
-  - phpenv rehash
-  - set +H
+  - cd ..
+  - git clone git://github.com/cakephp/cakephp.git --branch $CAKE_VERSION --depth 1
+  - cd cakephp/app
+  - git clone https://github.com/FriendsOfCake/travis.git
+  - ./travis/before_script.sh
 
 script:
-  - sh -c "phpcs -p --extensions=php --standard=CakePHP ./"
+  - ./travis/script.sh
+
+after_success:
+  - ./travis/after_success.sh
 
 notifications:
   email: false
