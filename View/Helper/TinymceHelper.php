@@ -51,7 +51,7 @@ class TinymceHelper extends WysiwygAppHelper {
 		$options['selector'] = '#' . $this->domId($fieldName);
 		$initOptions = $this->_initializationOptions($options);
 
-		$script = "tinyMCE.init({$initOptions});";
+		$script = "jQuery(function () { tinyMCE.init({$initOptions}); });";
 		if (!empty($options['_buffer'])) {
 			$this->Js->buffer($script);
 			return '';
