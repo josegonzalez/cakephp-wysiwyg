@@ -125,6 +125,7 @@ The following are special settings that are used internally by the `Wysiwyg` plu
 - `_cssText`: A text string containing relevant css
 - `_editor`: The editor class. Used only when you specify the `Wysiwyg.Wysiwyg` helper
 - `_scripts`: An array of scripts to buffer
+- `_scriptBlock`: Override which block the scripts will be added to
 
 These will be ignored when passing settings onto the wysiwyg javascript you are configuring.
 

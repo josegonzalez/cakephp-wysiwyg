@@ -41,7 +41,7 @@ class WysiwygAppHelper extends AppHelper {
 /**
  * Whether helper has been initialized once or not
  *
- * @var boolean
+ * @var bool
  */
 	protected $_initialized = false;
 
@@ -119,9 +119,15 @@ class WysiwygAppHelper extends AppHelper {
 			$this->_View->append('css', $out);
 		}
 
+		if (!empty($options['_scriptBlock'])) {
+			$scriptOpts = array('block' => $options['_scriptBlock']);
+		} else {
+			$scriptOpts = false;
+		}
+
 		if (!empty($options['_scripts'])) {
 			foreach ((array)$options['_scripts'] as $script) {
-				$this->Html->script($script, false);
+				$this->Html->script($script, $scriptOpts);
 			}
 		}
 	}
@@ -138,6 +144,7 @@ class WysiwygAppHelper extends AppHelper {
 			'_css' => true,
 			'_cssText' => true,
 			'_scripts' => true,
+			'_scriptBlock' => false,
 			'_editor' => true,
 		);
 
