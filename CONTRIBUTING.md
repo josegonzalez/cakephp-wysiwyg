@@ -57,7 +57,7 @@ To run the sniffs for CakePHP coding standards
 
 Check the [cakephp-codesniffer](https://github.com/cakephp/cakephp-codesniffer)
 repository to setup the CakePHP standard. The README contains installation info
-for the sniff and phpcs.
+for the sniff and phpcs. Thix project uses the `1.x` releases.
 
 
 # Additional Resources
