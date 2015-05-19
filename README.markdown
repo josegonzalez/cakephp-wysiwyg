@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/josegonzalez/cakephp-wysiwyg.png?branch=master)](https://travis-ci.org/josegonzalez/cakephp-wysiwyg) [![Coverage Status](https://coveralls.io/repos/josegonzalez/cakephp-wysiwyg/badge.png?branch=master)](https://coveralls.io/r/josegonzalez/cakephp-wysiwyg?branch=master) [![Total Downloads](https://poser.pugx.org/josegonzalez/cakephp-wysiwyg/d/total.png)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg) [![Latest Stable Version](https://poser.pugx.org/josegonzalez/cakephp-wysiwyg/v/stable.png)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg)
+[![Build Status](https://travis-ci.org/chrisvogt/cakephp-wysiwyg.png?branch=write-tests)](https://travis-ci.org/chrisvogt/cakephp-wysiwyg) [![Coverage Status](https://coveralls.io/repos/chrisvogt/cakephp-wysiwyg/badge.png?branch=write-tests)](https://coveralls.io/r/chrisvogt/cakephp-wysiwyg?branch=master) [![Total Downloads](https://poser.pugx.org/josegonzalez/cakephp-wysiwyg/d/total.png)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg) [![Latest Stable Version](https://poser.pugx.org/josegonzalez/cakephp-wysiwyg/v/stable.png)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg)
 
 # Wysiwyg Helpers Plugin 2.0
 
@@ -125,6 +125,7 @@ The following are special settings that are used internally by the `Wysiwyg` plu
 - `_cssText`: A text string containing relevant css
 - `_editor`: The editor class. Used only when you specify the `Wysiwyg.Wysiwyg` helper
 - `_scripts`: An array of scripts to buffer
+- `_scriptBlock`: Override which block the scripts will be added to
 
 These will be ignored when passing settings onto the wysiwyg javascript you are configuring.
 
