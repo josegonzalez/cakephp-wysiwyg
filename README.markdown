@@ -1,7 +1,9 @@
-[![Build Status](https://img.shields.io/travis/josegonzalez/cakephp-wysiwyg/master.svg?style=flat-square)](https://travis-ci.org/josegonzalez/cakephp-wysiwyg)
-[![Coveralls branch](https://img.shields.io/coveralls/josegonzalez/cakephp-wysiwyg/master.svg?style=flat-square)](https://coveralls.io/r/josegonzalez/cakephp-wysiwyg?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/josegonzalez/cakephp-wysiwyg.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg)
-[![Packagist](https://img.shields.io/packagist/v/josegonzalez/cakephp-wysiwyg.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg)
+[![Build Status](https://img.shields.io/travis/josegonzalez/cakephp-wysiwyg/master.svg?style=flat-square)](https://travis-ci.org/josegonzalez/cakephp-wysiwyg) 
+[![Coverage Status](https://img.shields.io/coveralls/josegonzalez/cakephp-wysiwyg.svg?style=flat-square)](https://coveralls.io/r/josegonzalez/cakephp-wysiwyg?branch=master) 
+[![Total Downloads](https://img.shields.io/packagist/dt/josegonzalez/cakephp-wysiwyg.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg) 
+[![Latest Stable Version](https://img.shields.io/packagist/v/josegonzalez/cakephp-wysiwyg.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-wysiwyg) 
+[![Documentation Status](https://readthedocs.org/projects/cakephp-wysiwyg/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/cakephp-wysiwyg/?badge=latest)
+[![Gratipay](https://img.shields.io/gratipay/josegonzalez.svg?style=flat-square)](https://gratipay.com/~josegonzalez/)
 
 # Wysiwyg Helpers Plugin 2.0
 
