@@ -45,6 +45,7 @@ class TinymceHelper extends WysiwygAppHelper {
 			'_scripts' => array(
 				'core' => 'tinymce/tinymce.min.js',
 			),
+            '_inline' => true,
 		), $options);
 
 		$this->_initialize($options);
