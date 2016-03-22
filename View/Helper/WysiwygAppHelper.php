@@ -146,6 +146,7 @@ class WysiwygAppHelper extends AppHelper {
 			'_scripts' => true,
 			'_scriptBlock' => false,
 			'_editor' => true,
+            '_inline' => false,
 		);
 
 		return json_encode(array_diff_key(array_merge(

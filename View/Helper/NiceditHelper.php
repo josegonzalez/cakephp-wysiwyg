@@ -70,7 +70,7 @@ CSS;
 			return '';
 		}
 
-		return $this->Html->scriptBlock($script, array('safe' => false));
+		return $this->Html->scriptBlock($script, array('safe' => false, 'inline' => $options['_inline']));
 	}
 
 }
