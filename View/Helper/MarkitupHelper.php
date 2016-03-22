@@ -49,7 +49,7 @@ class MarkitupHelper extends WysiwygAppHelper {
 				'set' => '/js/markitup/sets/default/style.css',
 				'skin' => '/js/markitup/skins/markitup/style.css'
 			),
-            '_inline' => true,
+			'_inline' => true,
 		), $options);
 
 		$this->_initialize($options);

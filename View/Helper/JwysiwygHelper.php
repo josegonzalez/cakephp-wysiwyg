@@ -49,7 +49,7 @@ class JwysiwygHelper extends WysiwygAppHelper {
 				'core' => '/js/jwysiwyg/jquery.wysiwyg.css',
 			),
 			'initialContent' => '',
-            '_inline' => true,
+			'_inline' => true,
 		), $options);
 
 		$this->_initialize($options);

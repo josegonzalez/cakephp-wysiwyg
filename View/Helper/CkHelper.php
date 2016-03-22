@@ -44,7 +44,7 @@ class CkHelper extends WysiwygAppHelper {
 			'_scripts' => array(
 				'core' => 'ck/ckeditor.js',
 			),
-            '_inline' => true,
+			'_inline' => true,
 		), $options);
 
 		$this->_initialize($options);
