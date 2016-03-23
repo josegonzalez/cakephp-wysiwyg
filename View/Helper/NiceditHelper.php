@@ -55,7 +55,8 @@ CSS;
 				'core' => 'nicedit/nicEdit.js',
 			),
 			'_cssText' => $cssText,
-			'iconsPath' => '/js/nicedit/nicEditorIcons.gif'
+			'iconsPath' => '/js/nicedit/nicEditorIcons.gif',
+			'_inline' => true,
 		), $options);
 
 		$options['iconsPath'] = $this->url($options['iconsPath']);
@@ -70,7 +71,7 @@ CSS;
 			return '';
 		}
 
-		return $this->Html->scriptBlock($script, array('safe' => false));
+		return $this->Html->scriptBlock($script, array('safe' => false, 'inline' => $options['_inline']));
 	}
 
 }

@@ -49,6 +49,7 @@ class JwysiwygHelper extends WysiwygAppHelper {
 				'core' => '/js/jwysiwyg/jquery.wysiwyg.css',
 			),
 			'initialContent' => '',
+			'_inline' => true,
 		), $options);
 
 		$this->_initialize($options);
@@ -61,7 +62,7 @@ class JwysiwygHelper extends WysiwygAppHelper {
 			return '';
 		}
 
-		return $this->Html->scriptBlock($script, array('safe' => false));
+		return $this->Html->scriptBlock($script, array('safe' => false, 'inline' => $options['_inline']));
 	}
 
 }

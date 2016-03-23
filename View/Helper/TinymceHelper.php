@@ -45,6 +45,7 @@ class TinymceHelper extends WysiwygAppHelper {
 			'_scripts' => array(
 				'core' => 'tinymce/tinymce.min.js',
 			),
+			'_inline' => true,
 		), $options);
 
 		$this->_initialize($options);
@@ -57,7 +58,7 @@ class TinymceHelper extends WysiwygAppHelper {
 			return '';
 		}
 
-		return $this->Html->scriptBlock($script, array('safe' => false));
+		return $this->Html->scriptBlock($script, array('safe' => false, 'inline' => $options['_inline']));
 	}
 
 }
